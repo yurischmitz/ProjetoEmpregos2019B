@@ -6,7 +6,7 @@
 package telas;
 
 import telas.TelaPrincipal;
-import controles.LoginControle;
+import controles.UsuarioControle;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,22 +53,29 @@ public class Login extends javax.swing.JFrame {
                 btnEntrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 117, 139, -1));
-        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 33, 139, -1));
+        getContentPane().add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 117, 139, -1));
+
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 33, 139, -1));
 
         jLabel1.setText("Usuário");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 13, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 13, -1, -1));
 
         jLabel2.setText("Senha");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 66, -1, -1));
-        getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 86, 139, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 66, -1, -1));
+        getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 86, 139, -1));
 
-        pack();
+        setSize(new java.awt.Dimension(228, 224));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         
-        LoginControle login = new LoginControle();
+        UsuarioControle login = new UsuarioControle();
         
         String usuario = txtUsuario.getText().trim();//captura o usuario da tela
         String senha = txtSenha.getText().toString();//captura a senha da tela
@@ -77,14 +84,19 @@ public class Login extends javax.swing.JFrame {
         
         if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
             System.out.println("Usuário não existe");
-            CaixaDeDialogo.obterInstancia().exibirMensagem("Dados incorretos!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!");
             
         }else{ //caso o usuario de retorno seja válido, a tela principal abre
+            TelaPrincipal.usuarioLogado = user;
             TelaPrincipal tela = new TelaPrincipal();
             tela.setVisible(true);
             this.setVisible(false);//fecha tela de login
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

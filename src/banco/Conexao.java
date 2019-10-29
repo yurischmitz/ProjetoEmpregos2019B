@@ -32,7 +32,7 @@ public class Conexao {
             
             Connection con = obterConexao();
             stmt = con.createStatement();
-            System.out.print("Conexão com Banco de Dados Criada!");
+            System.out.print("Conexão com Banco de Dados Criada!\n");
         } catch (Exception ex) {
             System.out.print(ex);
         }

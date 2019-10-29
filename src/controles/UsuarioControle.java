@@ -15,7 +15,7 @@ import modelos.Usuario;
  *
  * @author ruanw
  */
-public class LoginControle {
+public class UsuarioControle {
     
     public Usuario Login(String usuario, String senha){
         //INÍCIO CONEXÃO COM O BANCO DE DADOS
@@ -28,8 +28,10 @@ public class LoginControle {
         StringBuilder comandoSQL = new StringBuilder();
         comandoSQL.append(" SELECT login, nome, nivel");
         comandoSQL.append(" FROM usuarios");
-        comandoSQL.append(" WHERE login = '" + usuario + "'");
-        comandoSQL.append(" AND senha = MD5('" + senha + "')");
+        comandoSQL.append(" WHERE nome = '" + usuario + "'");
+        comandoSQL.append(" OR login = '" + usuario + "'");
+        comandoSQL.append(" AND senha = '" + senha + "'");
+        //comandoSQL.append(" AND senha = MD5('" + senha + "')");
 
         try {
             System.out.println("Vai Executar Conexão em buscar area");

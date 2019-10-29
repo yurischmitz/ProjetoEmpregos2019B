@@ -70,11 +70,9 @@ public class Combos {
     }
 
     public int PreencheCombo(String wSQL) throws SQLException{
-           //DESMARCAR AS DUAS LINHAS ABAIXO QUANDO O BANCO ESTIVER PRONTO  !!!!!!!
-           //DESMARCAR AS DUAS LINHAS ABAIXO QUANDO O BANCO ESTIVER PRONTO  !!!!!!!
-           //DESMARCAR AS DUAS LINHAS ABAIXO QUANDO O BANCO ESTIVER PRONTO  !!!!!!!
-        //  Conexao.abreConexao();
-        //result = Conexao.stmt.executeQuery(wSQL);
+            
+        Conexao.abreConexao();
+        result = Conexao.stmt.executeQuery(wSQL);
         
         //ConnectionFactory.closeConnection(ConnectionFactory.con, ConnectionFactory.stmt);
         

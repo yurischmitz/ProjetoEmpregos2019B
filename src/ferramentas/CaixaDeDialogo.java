@@ -19,7 +19,7 @@ public class CaixaDeDialogo {
         // construtor vazio e privado
     }
     
-    public static CaixaDeDialogo obterInstancia() {
+    public static CaixaDeDialogo obterinstancia() {
         return (instancia);
     }
     
