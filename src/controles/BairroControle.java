@@ -26,13 +26,12 @@ public class BairroControle {
         this.objBairro = objBairro;
         this.jtbBairros = jtbBairros;
     }
-    
     public boolean incluir(){
         
         Conexao.abreConexao();
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
-        
+        System.out.println(objBairro.getId_cidade());
         try{
             stmt = con.prepareStatement("INSERT INTO bairros(nome,id_cidade) VALUES(?,?)");
             stmt.setString(1, objBairro.getNome());
@@ -57,7 +56,7 @@ public class BairroControle {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE bairros SET nome=?, id_cidade=? WHERE id=?");
+            stmt = con.prepareStatement("UPDATE bairros SET nome=?,id_cidade=? WHERE id=?");
             stmt.setString(1, objBairro.getNome());
             stmt.setInt(2, objBairro.getId_cidade());
             stmt.setInt(3, objBairro.getId());
@@ -75,7 +74,7 @@ public class BairroControle {
         
     }
     
-    public void preencher() {
+    public void preencher(){
 
         Conexao.abreConexao();
         
@@ -85,7 +84,7 @@ public class BairroControle {
         cabecalhos.add("Código");
         cabecalhos.add("Bairro");
         cabecalhos.add("Cidade");
-        cabecalhos.add("Estado");
+        cabecalhos.add("UF");
         cabecalhos.add("Excluir");
         
         ResultSet result = null;
@@ -136,19 +135,16 @@ public class BairroControle {
             column = jtbBairros.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
-                    column.setPreferredWidth(50);
+                    column.setPreferredWidth(60);
                     break;
                 case 1:
-                    column.setPreferredWidth(150);
+                    column.setPreferredWidth(180);
                     break;
                 case 2:
-                    column.setPreferredWidth(150);
+                    column.setPreferredWidth(180);
                     break;
                 case 3:
-                    column.setPreferredWidth(50);
-                    break;
-                case 4:
-                    column.setPreferredWidth(0);
+                    column.setPreferredWidth(20);
                     break;
             }
         }
@@ -171,7 +167,7 @@ public class BairroControle {
         //return (true);
     }
     
-    public Bairro buscar(String id){
+    public Bairro buscar(String id) {
         try {
             Conexao.abreConexao();
             ResultSet rs = null;
@@ -181,6 +177,10 @@ public class BairroControle {
             SQL += " FROM bairros ";
             SQL += " WHERE id = '" + id + "'";
             SQL += " AND data_exclusao is null ";
+            //SQL = " SELECT b.id, b.nome, b.id_cidade, e.uf ";
+            //SQL += " FROM bairros b, cidades c, estados e ";
+            //SQL += " WHERE b.id_cidade = c.id AND c.uf_estados = e.uf AND b.id = '" + id + "'";
+            //SQL += " AND b.data_exclusao is null ";
 
             try{
                 System.out.println("Vai Executar Conexão em buscar");
@@ -193,6 +193,7 @@ public class BairroControle {
                     objBairro.setId(rs.getInt(1));
                     objBairro.setNome(rs.getString(2));
                     objBairro.setId_cidade(rs.getInt(3));
+                    //objBairro.setUf_estado(rs.getString(4));
                 }
             }
 
@@ -232,5 +233,4 @@ public class BairroControle {
             Conexao.fecharConexao(con, stmt);
         }
     }
-    
 }
