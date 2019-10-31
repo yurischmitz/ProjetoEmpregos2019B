@@ -6,6 +6,8 @@
 package controles;
 
 import banco.Conexao;
+import static banco.Conexao.con;
+import static banco.Conexao.stmt;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
@@ -75,6 +77,7 @@ public class CargoControle {
             return false;
         }finally{
             Conexao.fecharConexao(con, stmt);
+            System.out.println("Conexão fechada!");
         }
         
     }

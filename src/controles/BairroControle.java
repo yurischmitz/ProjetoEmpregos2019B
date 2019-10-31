@@ -31,7 +31,6 @@ public class BairroControle {
         Conexao.abreConexao();
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
-        System.out.println(objBairro.getId_cidade());
         try{
             stmt = con.prepareStatement("INSERT INTO bairros(nome,id_cidade) VALUES(?,?)");
             stmt.setString(1, objBairro.getNome());

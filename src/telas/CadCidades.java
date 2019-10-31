@@ -56,11 +56,11 @@ public class CadCidades extends javax.swing.JFrame {
             txtNome.setText("");
             cbComboEstado.SetaComboBox(String.valueOf(""));
            
-            /*if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
                 btnSalvar.setEnabled(true);
             }else{
                 btnSalvar.setEnabled(false);
-            }*/
+            }
             
             atualizarTabela();
             
@@ -94,7 +94,6 @@ public class CadCidades extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -104,14 +103,12 @@ public class CadCidades extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbCidades = new javax.swing.JTable();
         btnLimpar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setTitle("Cadastro de Cidades");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Cadastro de Cidades");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nome *");
@@ -119,7 +116,7 @@ public class CadCidades extends javax.swing.JFrame {
 
         lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblId.setText("ID");
-        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
         getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 350, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -170,7 +167,19 @@ public class CadCidades extends javax.swing.JFrame {
         });
         getContentPane().add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, -1, -1));
 
-        pack();
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setText("Cadastro de Cidades");
+        jPanel1.add(jLabel7);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 40));
+
+        setSize(new java.awt.Dimension(496, 409));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -303,7 +312,8 @@ public class CadCidades extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbEstado;
     private javax.swing.JTable jtbCidades;

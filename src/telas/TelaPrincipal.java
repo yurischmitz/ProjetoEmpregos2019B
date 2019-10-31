@@ -19,7 +19,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setExtendedState(TelaPrincipal.MAXIMIZED_BOTH);
         
         
-        lblBemVindo.setText("Bem-Vindo " + usuarioLogado.getNome());
+        lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos " + usuarioLogado.getNome());
     }
 
     /**
@@ -31,22 +31,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lblBemVindo = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        barraMenu = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenu();
         menuBairros = new javax.swing.JMenuItem();
         menuCidade = new javax.swing.JMenuItem();
         menuEmpresas = new javax.swing.JMenuItem();
-        mnSair = new javax.swing.JMenu();
+        menuCargos = new javax.swing.JMenuItem();
+        menuCargo_Empresa = new javax.swing.JMenuItem();
+        menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de cadastro");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblBemVindo.setText("jLabel1");
-        getContentPane().add(lblBemVindo, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 120, -1, -1));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jMenu1.setText("Cadastros");
+        lblBemVindo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblBemVindo.setForeground(new java.awt.Color(0, 204, 51));
+        lblBemVindo.setText("LABEL DE BOAS VINDAS");
+        jPanel1.add(lblBemVindo);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 90));
+
+        menu.setText("Cadastros");
 
         menuBairros.setText("Bairros");
         menuBairros.addActionListener(new java.awt.event.ActionListener() {
@@ -54,15 +66,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuBairrosActionPerformed(evt);
             }
         });
-        jMenu1.add(menuBairros);
+        menu.add(menuBairros);
 
-        menuCidade.setText("Cidade");
+        menuCidade.setText("Cidades");
         menuCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuCidadeActionPerformed(evt);
             }
         });
-        jMenu1.add(menuCidade);
+        menu.add(menuCidade);
 
         menuEmpresas.setText("Empresas");
         menuEmpresas.addActionListener(new java.awt.event.ActionListener() {
@@ -70,21 +82,38 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuEmpresasActionPerformed(evt);
             }
         });
-        jMenu1.add(menuEmpresas);
+        menu.add(menuEmpresas);
 
-        jMenuBar1.add(jMenu1);
-
-        mnSair.setText("Sair");
-        mnSair.addActionListener(new java.awt.event.ActionListener() {
+        menuCargos.setText("Cargos");
+        menuCargos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnSairActionPerformed(evt);
+                menuCargosActionPerformed(evt);
             }
         });
-        jMenuBar1.add(mnSair);
+        menu.add(menuCargos);
 
-        setJMenuBar(jMenuBar1);
+        menuCargo_Empresa.setText("Cargos Empresas");
+        menuCargo_Empresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCargo_EmpresaActionPerformed(evt);
+            }
+        });
+        menu.add(menuCargo_Empresa);
 
-        pack();
+        barraMenu.add(menu);
+
+        menuSair.setText("Sair");
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSairActionPerformed(evt);
+            }
+        });
+        barraMenu.add(menuSair);
+
+        setJMenuBar(barraMenu);
+
+        setSize(new java.awt.Dimension(817, 568));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuBairrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBairrosActionPerformed
@@ -97,9 +126,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuBairrosActionPerformed
 
 
-    private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
         dispose();
-    }//GEN-LAST:event_mnSairActionPerformed
+    }//GEN-LAST:event_menuSairActionPerformed
 
     private void menuCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCidadeActionPerformed
         if(usuarioLogado.getNivel().equals("A")){
@@ -119,6 +148,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
         }
     }//GEN-LAST:event_menuEmpresasActionPerformed
+
+    private void menuCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCargosActionPerformed
+        if(usuarioLogado.getNivel().equals("A")){
+            CadCargos tela_cargos = new CadCargos();
+            tela_cargos.setVisible(true);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+        }
+    }//GEN-LAST:event_menuCargosActionPerformed
+
+    private void menuCargo_EmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCargo_EmpresaActionPerformed
+        // TODO add your handling code here:
+        if(usuarioLogado.getNivel().equals("A")){
+            CadCargos_Empresas tela_cargos_empresas = new CadCargos_Empresas();
+            tela_cargos_empresas.setVisible(true);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+        }
+    }//GEN-LAST:event_menuCargo_EmpresaActionPerformed
 
 
     /**
@@ -160,12 +208,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBemVindo;
+    private javax.swing.JMenu menu;
     private javax.swing.JMenuItem menuBairros;
+    private javax.swing.JMenuItem menuCargo_Empresa;
+    private javax.swing.JMenuItem menuCargos;
     private javax.swing.JMenuItem menuCidade;
     private javax.swing.JMenuItem menuEmpresas;
-    private javax.swing.JMenu mnSair;
+    private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 }

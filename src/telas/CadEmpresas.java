@@ -7,6 +7,7 @@ package telas;
 
 import controles.EmpresaControle;
 import ferramentas.CaixaDeDialogo;
+import ferramentas.Formatacao;
 import ferramentas.Validacao;
 import modelos.Empresa;
 
@@ -46,11 +47,11 @@ public class CadEmpresas extends javax.swing.JFrame {
             txtNome.setText("");
             txtCnpj.setText("");
            
-            /*if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
                 btnSalvar.setEnabled(true);
             }else{
                 btnSalvar.setEnabled(false);
-            }*/
+            }
             
             atualizarTabela();
             
@@ -83,7 +84,6 @@ public class CadEmpresas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JTextField();
@@ -93,13 +93,12 @@ public class CadEmpresas extends javax.swing.JFrame {
         jtbEmpresas = new javax.swing.JTable();
         btnLimpar = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Empresas");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Cadastro de Cidades");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nome *");
@@ -107,7 +106,7 @@ public class CadEmpresas extends javax.swing.JFrame {
 
         lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblId.setText("ID");
-        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
         getContentPane().add(txtCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 350, -1));
 
         lblCnpj.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -150,6 +149,17 @@ public class CadEmpresas extends javax.swing.JFrame {
         });
         getContentPane().add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, -1, -1));
         getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 350, -1));
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setText("Cadastro de Empresas");
+        jPanel1.add(jLabel7);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 40));
 
         setSize(new java.awt.Dimension(496, 439));
         setLocationRelativeTo(null);
@@ -284,7 +294,8 @@ public class CadEmpresas extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtbEmpresas;
     private javax.swing.JLabel lblCnpj;

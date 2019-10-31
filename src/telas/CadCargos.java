@@ -46,11 +46,11 @@ public class CadCargos extends javax.swing.JFrame {
             lblId.setText("ID");
             txtNome.setText("");
             
-            /*if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
                 btnSalvar.setEnabled(true);
             }else{
                 btnSalvar.setEnabled(false);
-            }*/
+            }
             
             atualizarTabela();
             
@@ -77,7 +77,6 @@ public class CadCargos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
@@ -85,13 +84,12 @@ public class CadCargos extends javax.swing.JFrame {
         jtbCargos = new javax.swing.JTable();
         btnLimpar = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Cargos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Cadastro de Cargos");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nome *");
@@ -138,7 +136,18 @@ public class CadCargos extends javax.swing.JFrame {
         getContentPane().add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
         getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 250, -1));
 
-        setSize(new java.awt.Dimension(287, 333));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setText("Cadastro de Cargos");
+        jPanel1.add(jLabel7);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 40));
+
+        setSize(new java.awt.Dimension(284, 333));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -263,7 +272,8 @@ public class CadCargos extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtbCargos;
     private javax.swing.JLabel lblId;

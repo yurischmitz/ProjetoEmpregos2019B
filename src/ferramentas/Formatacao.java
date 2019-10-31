@@ -58,7 +58,7 @@ public class Formatacao {
     public static JFormattedTextField getCNPJ() {
         return getFormatado("##.###.###/####-##");
     }
-
+    
     public static JFormattedTextField getCPF() {
         return getFormatado("###.###.###-##");
     }

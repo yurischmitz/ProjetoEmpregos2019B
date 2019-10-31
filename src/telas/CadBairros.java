@@ -91,7 +91,6 @@ public class CadBairros extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbBairros = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
         btnLimpar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
@@ -100,6 +99,8 @@ public class CadBairros extends javax.swing.JFrame {
         jcbEstado = new javax.swing.JComboBox<>();
         jcbCidade = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -131,10 +132,6 @@ public class CadBairros extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtbBairros);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 500, 110));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Cadastro de Bairros");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, -1));
 
         btnLimpar.setText("LIMPAR");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +168,17 @@ public class CadBairros extends javax.swing.JFrame {
         jLabel7.setText("Cidade");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel6.setText("Cadastro de Bairros");
+        jPanel1.add(jLabel6);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
+
         setSize(new java.awt.Dimension(555, 421));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -186,6 +194,11 @@ public class CadBairros extends javax.swing.JFrame {
             
             if(jcbEstado.getSelectedIndex() == 0){
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um estado", 'a');
+                return;
+            }
+            
+            if(jcbCidade.getSelectedIndex() == 0){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe uma cidade", 'a');
                 return;
             }
                       
@@ -328,6 +341,7 @@ public class CadBairros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbCidade;
     private javax.swing.JComboBox<String> jcbEstado;

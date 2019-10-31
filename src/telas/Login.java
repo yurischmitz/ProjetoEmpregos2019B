@@ -42,8 +42,11 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
+        btnAdm = new javax.swing.JButton();
+        btnNormal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -68,6 +71,22 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("Senha");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 66, -1, -1));
         getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 86, 139, -1));
+
+        btnAdm.setText("ADM");
+        btnAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAdm, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+
+        btnNormal.setText("Normal");
+        btnNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNormalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
 
         setSize(new java.awt.Dimension(228, 224));
         setLocationRelativeTo(null);
@@ -97,6 +116,52 @@ public class Login extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void btnAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmActionPerformed
+        UsuarioControle login = new UsuarioControle();
+        
+        txtUsuario.setText("Yuri");
+        txtSenha.setText("123");
+        
+        String usuario = txtUsuario.getText().trim();//captura o usuario da tela
+        String senha = txtSenha.getText().toString();//captura a senha da tela
+        
+        Usuario user = login.Login(usuario, senha);
+        
+        if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
+            System.out.println("Usuário não existe");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!");
+            
+        }else{ //caso o usuario de retorno seja válido, a tela principal abre
+            TelaPrincipal.usuarioLogado = user;
+            TelaPrincipal tela = new TelaPrincipal();
+            tela.setVisible(true);
+            this.setVisible(false);//fecha tela de login
+        }
+    }//GEN-LAST:event_btnAdmActionPerformed
+
+    private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
+        UsuarioControle login = new UsuarioControle();
+        
+        txtUsuario.setText("Ruan");
+        txtSenha.setText("123");
+        
+        String usuario = txtUsuario.getText().trim();//captura o usuario da tela
+        String senha = txtSenha.getText().toString();//captura a senha da tela
+        
+        Usuario user = login.Login(usuario, senha);
+        
+        if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
+            System.out.println("Usuário não existe");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!");
+            
+        }else{ //caso o usuario de retorno seja válido, a tela principal abre
+            TelaPrincipal.usuarioLogado = user;
+            TelaPrincipal tela = new TelaPrincipal();
+            tela.setVisible(true);
+            this.setVisible(false);//fecha tela de login
+        }
+    }//GEN-LAST:event_btnNormalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,7 +206,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdm;
     private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnNormal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField txtSenha;
