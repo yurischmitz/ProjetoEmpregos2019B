@@ -36,6 +36,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menuBairros = new javax.swing.JMenuItem();
         menuCidade = new javax.swing.JMenuItem();
+        menuEmpresas = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,6 +63,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuCidade);
+
+        menuEmpresas.setText("Empresas");
+        menuEmpresas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEmpresasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuEmpresas);
 
         jMenuBar1.add(jMenu1);
 
@@ -100,6 +109,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
         }
     }//GEN-LAST:event_menuCidadeActionPerformed
+
+    private void menuEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmpresasActionPerformed
+        // TODO add your handling code here:
+        if(usuarioLogado.getNivel().equals("A")){
+            CadEmpresas tela_empresas = new CadEmpresas();
+            tela_empresas.setVisible(true);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+        }
+    }//GEN-LAST:event_menuEmpresasActionPerformed
 
 
     /**
@@ -146,6 +165,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblBemVindo;
     private javax.swing.JMenuItem menuBairros;
     private javax.swing.JMenuItem menuCidade;
+    private javax.swing.JMenuItem menuEmpresas;
     private javax.swing.JMenu mnSair;
     // End of variables declaration//GEN-END:variables
 }
