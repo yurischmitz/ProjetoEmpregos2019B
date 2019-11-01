@@ -11,4 +11,23 @@ package modelos;
  */
 public class Escolaridade {
     
+    private int id;
+    private String escolaridade;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEscolaridade() {
+        return escolaridade;
+    }
+
+    public void setEscolaridade(String escolaridade) {
+        this.escolaridade = escolaridade;
+    }
+    
 }

@@ -40,6 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuEmpresas = new javax.swing.JMenuItem();
         menuCargos = new javax.swing.JMenuItem();
         menuCargo_Empresa = new javax.swing.JMenuItem();
+        menuEscolaridades = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +100,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menu.add(menuCargo_Empresa);
+
+        menuEscolaridades.setText("Escolaridades");
+        menuEscolaridades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEscolaridadesActionPerformed(evt);
+            }
+        });
+        menu.add(menuEscolaridades);
 
         barraMenu.add(menu);
 
@@ -168,6 +177,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuCargo_EmpresaActionPerformed
 
+    private void menuEscolaridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEscolaridadesActionPerformed
+        // TODO add your handling code here:
+        if(usuarioLogado.getNivel().equals("A")){
+            CadEscolaridades tela_escolaridades = new CadEscolaridades();
+            tela_escolaridades.setVisible(true);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+        }
+    }//GEN-LAST:event_menuEscolaridadesActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -217,6 +236,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCargos;
     private javax.swing.JMenuItem menuCidade;
     private javax.swing.JMenuItem menuEmpresas;
+    private javax.swing.JMenuItem menuEscolaridades;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 }
