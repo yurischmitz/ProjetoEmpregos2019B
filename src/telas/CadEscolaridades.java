@@ -5,6 +5,13 @@
  */
 package telas;
 
+import controles.CargoControle;
+import controles.CidadeControle;
+import ferramentas.CaixaDeDialogo;
+import controles.EscolaridadeControle;
+import modelos.Cargo;
+import modelos.Escolaridade;
+
 /**
  *
  * @author ruanw
@@ -14,8 +21,58 @@ public class CadEscolaridades extends javax.swing.JFrame {
     /**
      * Creates new form CadEscolaridades
      */
+    
+    Escolaridade objEscolaridade;
+    EscolaridadeControle objEscolaridadeControle;
+    
     public CadEscolaridades() {
         initComponents();
+        
+        limparTela();
+        atualizarTabela();
+    }
+    
+    private void atualizarTabela(){
+        try{
+            
+            objEscolaridadeControle = new EscolaridadeControle(null, jtbEscolaridades);
+            objEscolaridadeControle.preencher();
+            
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage());
+        }
+    }
+    
+    private void limparTela(){
+        try{
+            lblId.setText("ID");
+            txtEscolaridade.setText("");
+            
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
+                btnSalvar.setEnabled(true);
+            }else{
+                btnSalvar.setEnabled(false);
+            }
+            
+            atualizarTabela();
+            
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+        }
+    }   
+    
+    private void preencherCampos(){
+        try{
+            lblId.setText(String.valueOf(objEscolaridade.getId()));
+            txtEscolaridade.setText(objEscolaridade.getEscolaridade());
+                                   
+            btnSalvar.setEnabled(true);
+            
+            atualizarTabela();
+            
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+        }
     }
 
     /**
@@ -27,21 +84,206 @@ public class CadEscolaridades extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbEscolaridades = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        jblEscolaridade = new javax.swing.JLabel();
+        txtEscolaridade = new javax.swing.JTextField();
+        btnSalvar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jtbEscolaridades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtbEscolaridades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtbEscolaridadesMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtbEscolaridades);
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setText("Cadastro de Escolaridades");
+        jPanel1.add(jLabel7);
+
+        lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblId.setText("ID");
+
+        jblEscolaridade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jblEscolaridade.setText("Escolaridade*");
+
+        btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("LIMPAR");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        btnAtualizar.setText("ATUALIZAR");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jblEscolaridade)
+                    .addComponent(txtEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addGap(65, 65, 65)
+                        .addComponent(btnLimpar)
+                        .addGap(63, 63, 63)
+                        .addComponent(btnAtualizar))
+                    .addComponent(lblId))
+                .addGap(72, 72, 72))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(lblId)
+                .addGap(26, 26, 26)
+                .addComponent(jblEscolaridade)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnAtualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        try{
+            boolean retorno;
+            //validar os campos
+            if(txtEscolaridade.getText().trim().length() == 0){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe uma escolaridade corretamente", 'a');
+                return;
+            }
+
+            objEscolaridade = new Escolaridade();
+            objEscolaridade.setEscolaridade(txtEscolaridade.getText().trim());
+
+            if(!lblId.getText().equals("ID")){
+                objEscolaridade.setId(Integer.parseInt(lblId.getText()));
+                objEscolaridadeControle = new EscolaridadeControle(objEscolaridade, null);
+                retorno = objEscolaridadeControle.alterar();
+            }else{
+                objEscolaridadeControle = new EscolaridadeControle(objEscolaridade, null);
+                retorno = objEscolaridadeControle.incluir();
+            }
+
+            if(retorno = true){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
+            }else{
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
+            }
+
+            atualizarTabela();
+
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
+            System.out.println("ERRO: " + ex.getMessage().toString());
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparTela();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        atualizarTabela();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void jtbEscolaridadesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEscolaridadesMousePressed
+        // TODO add your handling code here:
+        try{
+
+            int linhaSelecionada = jtbEscolaridades.getSelectedRow();//pega a linha selecionada
+            String codigo = jtbEscolaridades.getModel().getValueAt(linhaSelecionada, 0).toString(); // Primeira coluna da linha
+
+            //Verifica se clicou na coluna 2 = EXCLUIR
+            if(jtbEscolaridades.isColumnSelected(2)){
+                try{
+                    boolean wPergunta = CaixaDeDialogo.obterinstancia().pedirConfirmacao("Tem certeza de que deseja excluir?","",'p');
+                    if (wPergunta == true){
+                        objEscolaridade = new Escolaridade();
+                        objEscolaridade.setId(Integer.parseInt(codigo));
+
+                        objEscolaridadeControle = new EscolaridadeControle(objEscolaridade, null);
+                        boolean wControle = objEscolaridadeControle.excluir();
+                        if (wControle){
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!");
+                        }else{
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!");
+                        }
+                    }
+                    atualizarTabela();
+
+                }catch(Exception ex){
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+                }
+            }else{
+
+                objEscolaridadeControle = new EscolaridadeControle(null, null);
+                objEscolaridade = objEscolaridadeControle.buscar(codigo);
+                if (objEscolaridade != null && objEscolaridade.getId() > 0){
+                    preencherCampos();
+                }else{
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
+                }
+            }
+
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
+        }
+    }//GEN-LAST:event_jtbEscolaridadesMousePressed
 
     /**
      * @param args the command line arguments
@@ -79,5 +321,15 @@ public class CadEscolaridades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jblEscolaridade;
+    private javax.swing.JTable jtbEscolaridades;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JTextField txtEscolaridade;
     // End of variables declaration//GEN-END:variables
 }

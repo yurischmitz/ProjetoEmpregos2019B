@@ -112,6 +112,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         barraMenu.add(menu);
 
         menuSair.setText("Sair");
+        menuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                menuSairMousePressed(evt);
+            }
+        });
         menuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuSairActionPerformed(evt);
@@ -186,6 +191,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
         }
     }//GEN-LAST:event_menuEscolaridadesActionPerformed
+
+    private void menuSairMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMousePressed
+        // TODO add your handling code here:
+        
+        boolean resposta = CaixaDeDialogo.obterinstancia().pedirConfirmacao("Deseja realmente sair?", "Sair",'p');
+        if(resposta)
+            System.exit(0);
+        
+    }//GEN-LAST:event_menuSairMousePressed
 
 
     /**
