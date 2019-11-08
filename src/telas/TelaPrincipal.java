@@ -20,6 +20,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         
         lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos " + usuarioLogado.getNome());
+        
+        menuBairros.setVisible(verificaPermissao("M"));
+        menuCidade.setVisible(verificaPermissao("M"));
+
+    }
+   
+    public static boolean verificaPermissao(String tipo){
+        /* V = visualizar
+        S = salvar
+        M = menu
+        E = excluir
+        */
+        if(usuarioLogado.getNivel().equals("N")){
+            if(tipo.equals("S")){
+                return true; //permissao negada
+            }else if(tipo.equals("V")){
+                return true; //permissao concedida
+            }else if(tipo.equals("E")){
+                return false; //permissao negada
+            }else if(tipo.equals("M")){
+                return false; //permissao negada
+            }
+        }else{
+            return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -140,10 +167,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuBairrosActionPerformed
 
 
-    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_menuSairActionPerformed
-
     private void menuCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCidadeActionPerformed
         if(usuarioLogado.getNivel().equals("A")){
             CadCidades tela_cidades = new CadCidades();
@@ -192,13 +215,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuEscolaridadesActionPerformed
 
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_menuSairActionPerformed
+
     private void menuSairMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMousePressed
         // TODO add your handling code here:
-        
+
         boolean resposta = CaixaDeDialogo.obterinstancia().pedirConfirmacao("Deseja realmente sair?", "Sair",'p');
         if(resposta)
-            System.exit(0);
-        
+        System.exit(0);
+
     }//GEN-LAST:event_menuSairMousePressed
 
 

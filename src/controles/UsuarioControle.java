@@ -30,8 +30,8 @@ public class UsuarioControle {
         comandoSQL.append(" FROM usuarios");
         comandoSQL.append(" WHERE nome = '" + usuario + "'");
         comandoSQL.append(" OR login = '" + usuario + "'");
-        comandoSQL.append(" AND senha = '" + senha + "'");
-        //comandoSQL.append(" AND senha = MD5('" + senha + "')");
+        //comandoSQL.append(" AND senha = '" + senha + "'");
+        comandoSQL.append(" AND senha = MD5('" + senha + "')");
 
         try {
             System.out.println("Vai Executar Conexão em buscar area");
