@@ -172,14 +172,14 @@ public class BairroControle {
             ResultSet rs = null;
 
             String SQL = "";
-            SQL = " SELECT id, nome, id_cidade ";
-            SQL += " FROM bairros ";
-            SQL += " WHERE id = '" + id + "'";
-            SQL += " AND data_exclusao is null ";
-            //SQL = " SELECT b.id, b.nome, b.id_cidade, e.uf ";
-            //SQL += " FROM bairros b, cidades c, estados e ";
-            //SQL += " WHERE b.id_cidade = c.id AND c.uf_estados = e.uf AND b.id = '" + id + "'";
-            //SQL += " AND b.data_exclusao is null ";
+            //SQL = " SELECT id, nome, id_cidade ";
+            //SQL += " FROM bairros ";
+            //SQL += " WHERE id = '" + id + "'";
+            //SQL += " AND data_exclusao is null ";
+            SQL = " SELECT b.id, b.nome, b.id_cidade, e.uf ";
+            SQL += " FROM bairros b, cidades c, estados e ";
+            SQL += " WHERE b.id_cidade = c.id AND c.uf_estados = e.uf AND b.id = '" + id + "'";
+            SQL += " AND b.data_exclusao is null ";
 
             try{
                 System.out.println("Vai Executar Conexão em buscar");
@@ -192,7 +192,7 @@ public class BairroControle {
                     objBairro.setId(rs.getInt(1));
                     objBairro.setNome(rs.getString(2));
                     objBairro.setId_cidade(rs.getInt(3));
-                    //objBairro.setUf_estado(rs.getString(4));
+                    objBairro.setUf_estado(rs.getString(4));
                 }
             }
 

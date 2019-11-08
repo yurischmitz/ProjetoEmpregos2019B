@@ -9,7 +9,7 @@ public class Bairro {
     private int id;
     private String nome;
     private int id_cidade;
-    //private String uf_estado;
+    private String uf_estado;
 
     public int getId() {
         return id;
@@ -35,12 +35,12 @@ public class Bairro {
         this.id_cidade = id_cidade;
     }
 
-    /*public String getUf_estado() {
+    public String getUf_estado() {
         return uf_estado;
     }
 
     public void setUf_estado(String uf_estado) {
         this.uf_estado = uf_estado;
-    }*/
+    }
     
 }

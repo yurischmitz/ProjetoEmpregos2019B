@@ -17,16 +17,17 @@ public class CadBairros extends javax.swing.JFrame {
     BairroControle objBairroControle;
     Combos cbComboEstado;
     Combos cbComboCidade;
+    Boolean selecionaItem;
     
     public CadBairros(){
         initComponents(); //renderiza os elementos na tela
         try{
-            
+            selecionaItem = false;
             cbComboEstado = new Combos(jcbEstado);
             cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ");
             
             cbComboCidade = new Combos(jcbCidade);
-            cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades ");
+            cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE 1 = 2 ");
         
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
@@ -51,8 +52,11 @@ public class CadBairros extends javax.swing.JFrame {
             lblId.setText("ID");
             txtNome.setText("");
             cbComboEstado.SetaComboBox(String.valueOf(""));
-            cbComboCidade.SetaComboBox(String.valueOf(""));
             
+            cbComboCidade = new Combos(jcbCidade);
+            cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE 1 = 2 ");
+            
+            cbComboCidade.SetaComboBox(String.valueOf(""));
            
             /*if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
                 btnSalvar.setEnabled(true);
@@ -72,7 +76,11 @@ public class CadBairros extends javax.swing.JFrame {
             lblId.setText(String.valueOf(objBairro.getId()));
             txtNome.setText(objBairro.getNome());
             
-            //cbComboEstado.SetaComboBox(String.valueOf(objBairro.getUf_estado()));
+            cbComboEstado.SetaComboBox(String.valueOf(objBairro.getUf_estado()));
+            
+            int cidade = objBairro.getId_cidade();
+            cbComboCidade = new Combos(jcbCidade);
+            cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE id = '"+ cidade +"' ");
             cbComboCidade.SetaComboBox(String.valueOf(objBairro.getId_cidade()));
                        
             btnSalvar.setEnabled(true);
@@ -159,9 +167,14 @@ public class CadBairros extends javax.swing.JFrame {
                 jcbEstadoItemStateChanged(evt);
             }
         });
+        jcbEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbEstadoMouseClicked(evt);
+            }
+        });
         getContentPane().add(jcbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, -1));
 
-        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecone um estado" }));
+        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 170, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -233,7 +246,7 @@ public class CadBairros extends javax.swing.JFrame {
 
     private void jtbBairrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbBairrosMousePressed
         try{
-            
+            selecionaItem = true;
             int linhaSelecionada = jtbBairros.getSelectedRow();//pega a linha selecionada
             String codigo = jtbBairros.getModel().getValueAt(linhaSelecionada, 0).toString(); // Primeira coluna da linha
 
@@ -269,9 +282,11 @@ public class CadBairros extends javax.swing.JFrame {
                     CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
                 }
             }
+            selecionaItem = false;
         
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
+            selecionaItem = false;
         }
     }//GEN-LAST:event_jtbBairrosMousePressed
     
@@ -280,21 +295,47 @@ public class CadBairros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void jcbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbEstadoItemStateChanged
-    try{
-            if(jcbEstado.getSelectedIndex() > 0){
-                
-                Combos estado = (Combos) jcbEstado.getSelectedItem();
-                String sigla = estado.getCodigo();
-                
-                cbComboCidade = new Combos(jcbCidade);
-                cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");
-                
+        try{
+            if(selecionaItem == false){
+                if(jcbEstado.getSelectedIndex() > 0){
+
+                    Combos estado = (Combos) jcbEstado.getSelectedItem();
+                    String sigla = estado.getCodigo();
+
+                    cbComboCidade = new Combos(jcbCidade);
+                    cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");
+                    
+                }
             }
         
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
         }
     }//GEN-LAST:event_jcbEstadoItemStateChanged
+
+    /*private void preencherCidades(){
+        try{
+            if(selecionaItem == false){
+                if(jcbEstado.getSelectedIndex() > 0){
+
+                    Combos estado = (Combos) jcbEstado.getSelectedItem();
+                    String sigla = estado.getCodigo();
+
+                    cbComboCidade = new Combos(jcbCidade);
+                    cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");
+                    
+                }
+            }
+        
+        }catch(SQLException ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
+        }
+    }*/
+    
+    private void jcbEstadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbEstadoMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jcbEstadoMouseClicked
        
     /**
      * @param args the command line arguments
