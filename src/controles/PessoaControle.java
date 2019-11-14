@@ -32,6 +32,10 @@ public class PessoaControle {
     
     public boolean incluir(){
         
+        if(verificaExistenciaCPF() == true){
+            return false;
+        }
+        
         Conexao.abreConexao();
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
@@ -199,6 +203,47 @@ public class PessoaControle {
         
         System.out.println ("Executou buscar pessoa com sucesso");
         return objPessoa;
+    }
+    
+    public Boolean verificaExistenciaCPF()
+    {
+        try {
+            Conexao.abreConexao();
+            ResultSet rs = null;
+
+            String SQL = "";
+            SQL = " SELECT id ";
+            SQL += " FROM pessoas ";
+            SQL += " WHERE cpf = '" + objPessoa.getCpf() + "'";
+            SQL += " AND data_exclusao is null ";
+
+            try{
+                System.out.println("Vai Executar Conexão em buscar");
+                rs = Conexao.stmt.executeQuery(SQL);
+                System.out.println("Executou Conexão em buscar");
+
+                if(rs.next() == true)
+                {
+                    if(rs.getInt(1) != objPessoa.getId()){
+                        return true; //Já existe uma pessoa com este CPF
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }
+
+            catch (SQLException ex )
+            {
+                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage().toString());
+            return false;
+        }
     }
     
     public boolean excluir(){

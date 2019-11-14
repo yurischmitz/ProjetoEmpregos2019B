@@ -20,8 +20,7 @@ public class CadPessoa extends javax.swing.JFrame {
      * Creates new form CadPessoa
      */
     
-    Usuario usuarioLogado;
-
+    
     Pessoa objPessoa;
     PessoaControle objPessoaControle;
     Combos cbComboBairro;
@@ -33,16 +32,17 @@ public class CadPessoa extends javax.swing.JFrame {
         initComponents();
         
         try{
-            System.out.println(usuarioLogado.getNome());
+            System.out.println(TelaPrincipal.usuarioLogado.getNome());
         } catch (Exception e) {
             System.out.println(e);
         }
-        //lblNomeUsuario.setText(usuarioLogado.getNome());
+        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
          
         try{
             
             cbComboEstado = new Combos(jcbEstado);
-            cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ");
+            
+            cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ORDER BY uf ");
             
             cbComboEscolaridade = new Combos(jcbEscolaridade);
             cbComboEscolaridade.PreencheCombo(" SELECT id, escolaridade FROM escolaridades ");
@@ -347,7 +347,6 @@ public class CadPessoa extends javax.swing.JFrame {
             String data = Formatacao.ajustaDataAMD(txtData.getText());
             objPessoa.setData_nascimento(data);
             String telefone = Formatacao.soNumero(txtTelefone.getText());
-            System.out.println(telefone);
             objPessoa.setTelefone(telefone.trim());
             
             Combos c = (Combos) jcbBairro.getSelectedItem();
@@ -358,11 +357,13 @@ public class CadPessoa extends javax.swing.JFrame {
             objPessoaControle = new PessoaControle(objPessoa, null);
             retorno = objPessoaControle.incluir();
             
-            if(retorno = true){
+            if(retorno == true){
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
             }else{
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
             }
+            CadPessoa_Vaga tela_cad_pessoa_vaga = new CadPessoa_Vaga();
+            tela_cad_pessoa_vaga.setVisible(true);
 
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
