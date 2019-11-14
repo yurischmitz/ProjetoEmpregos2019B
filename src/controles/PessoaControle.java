@@ -36,7 +36,7 @@ public class PessoaControle {
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
         try{
-            stmt = con.prepareStatement("INSERT INTO pessoas(nome,cpf,data_nascimento,telefone,id_bairro,id_escolaridade) VALUES(?,?,?,?,?,?,)");
+            stmt = con.prepareStatement("INSERT INTO pessoas(nome,cpf,data_nascimento,telefone,id_bairro,id_escolaridade) VALUES(?,?,?,?,?,?)");
             stmt.setString(1, objPessoa.getNome());
             stmt.setString(2, objPessoa.getCpf());
             Date data_nasc = Date.valueOf(objPessoa.getData_nascimento());
@@ -44,34 +44,6 @@ public class PessoaControle {
             stmt.setString(4, objPessoa.getTelefone());
             stmt.setInt(5, objPessoa.getId_bairro());
             stmt.setInt(6, objPessoa.getId_escolaridade());
-           
-            stmt.executeUpdate();
-            
-            return true;
-            
-        }catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }finally{
-            Conexao.fecharConexao(con, stmt);
-        }
-    }
-    
-    public boolean alterar(){
-        
-        Conexao.abreConexao();
-        Connection con = Conexao.obterConexao();
-        PreparedStatement stmt = null;
-        try{
-            stmt = con.prepareStatement("UPDATE pessoas SET nome=?,cpf=?,data_nascimento=?,telefone=?,id_bairro=?,id_escolaridade=? WHERE id=?");
-            stmt.setString(1, objPessoa.getNome());
-            stmt.setString(2, objPessoa.getCpf());
-            Date data_nasc = Date.valueOf(objPessoa.getData_nascimento());
-            stmt.setDate(3, data_nasc);
-            stmt.setString(4, objPessoa.getTelefone());
-            stmt.setInt(5, objPessoa.getId_bairro());
-            stmt.setInt(6, objPessoa.getId_escolaridade());
-            stmt.setInt(7, objPessoa.getId());
            
             stmt.executeUpdate();
             

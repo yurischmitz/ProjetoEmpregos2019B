@@ -25,8 +25,7 @@ public class Validacao {
         return soma > 9 ? 0 : soma;
     }
     
-    public static boolean validarEmail(String email)
-    {
+    public static boolean validarEmail(String email) {
         boolean isEmailIdValid = false;
         if (email != null && email.length() > 0) {
             String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";

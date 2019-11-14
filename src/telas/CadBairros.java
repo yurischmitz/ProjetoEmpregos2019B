@@ -26,8 +26,8 @@ public class CadBairros extends javax.swing.JFrame {
             cbComboEstado = new Combos(jcbEstado);
             cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ");
             
-            cbComboCidade = new Combos(jcbCidade);
-            cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE 1 = 2 ");
+            //cbComboCidade = new Combos(jcbCidade);
+            //cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE 1 = 2 ");
         
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
@@ -58,11 +58,11 @@ public class CadBairros extends javax.swing.JFrame {
             
             cbComboCidade.SetaComboBox(String.valueOf(""));
            
-            /*if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
                 btnSalvar.setEnabled(true);
             }else{
                 btnSalvar.setEnabled(false);
-            }*/
+            }
             
             atualizarTabela();
             
@@ -167,14 +167,8 @@ public class CadBairros extends javax.swing.JFrame {
                 jcbEstadoItemStateChanged(evt);
             }
         });
-        jcbEstado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jcbEstadoMouseClicked(evt);
-            }
-        });
         getContentPane().add(jcbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, -1));
 
-        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 170, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -313,30 +307,7 @@ public class CadBairros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jcbEstadoItemStateChanged
 
-    /*private void preencherCidades(){
-        try{
-            if(selecionaItem == false){
-                if(jcbEstado.getSelectedIndex() > 0){
-
-                    Combos estado = (Combos) jcbEstado.getSelectedItem();
-                    String sigla = estado.getCodigo();
-
-                    cbComboCidade = new Combos(jcbCidade);
-                    cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");
-                    
-                }
-            }
-        
-        }catch(SQLException ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
-        }
-    }*/
-    
-    private void jcbEstadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbEstadoMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jcbEstadoMouseClicked
-       
+      
     /**
      * @param args the command line arguments
      */
