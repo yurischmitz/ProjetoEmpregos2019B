@@ -42,6 +42,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
+        lblSemLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -70,7 +71,15 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 66, -1, -1));
         getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 86, 139, -1));
 
-        setSize(new java.awt.Dimension(228, 201));
+        lblSemLogin.setText("SEM LOGIN");
+        lblSemLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lblSemLoginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(lblSemLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, -1));
+
+        setSize(new java.awt.Dimension(215, 232));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -84,7 +93,11 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUsuario.getText().trim();//captura o usuario da tela
         String senha = txtSenha.getText().toString();//captura a senha da tela
         
+        //if(){
         Usuario user = login.Login(usuario, senha);
+        //}else{
+            
+        //}
         
         if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
             System.out.println("Usuário não existe");
@@ -101,6 +114,30 @@ public class Login extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void lblSemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblSemLoginActionPerformed
+        // TODO add your handling code here:
+        UsuarioControle login = new UsuarioControle();
+        
+        txtUsuario.setText("normal");
+        txtSenha.setText("123");
+        
+        String usuario = txtUsuario.getText().trim();//captura o usuario da tela
+        String senha = txtSenha.getText().toString();//captura a senha da tela
+        
+        Usuario user = login.Login(usuario, senha);
+        
+        if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
+            System.out.println("Usuário não existe");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!");
+            
+        }else{ //caso o usuario de retorno seja válido, a tela principal abre
+            TelaPrincipal.usuarioLogado = user;
+            TelaPrincipal tela = new TelaPrincipal();
+            tela.setVisible(true);
+            this.setVisible(false);//fecha tela de login
+        }
+    }//GEN-LAST:event_lblSemLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,6 +185,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton lblSemLogin;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

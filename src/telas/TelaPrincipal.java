@@ -18,7 +18,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(TelaPrincipal.MAXIMIZED_BOTH);
 
-        lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos " + usuarioLogado.getNome());
+        if(!usuarioLogado.getNome().equals("normal")){
+            lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos " + usuarioLogado.getNome());
+        } else { 
+            lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos");
+        }
         
         menuBairros.setVisible(verificaPermissao("M"));
         menuCidade.setVisible(verificaPermissao("M"));
@@ -26,7 +30,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCargos.setVisible(verificaPermissao("M"));
         menuCargo_Empresa.setVisible(verificaPermissao("M"));
         menuEscolaridades.setVisible(verificaPermissao("M"));
-
+        menuPessoas.setVisible(verificaPermissao("V"));
     }
    
     public static boolean verificaPermissao(String tipo){
@@ -242,7 +246,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPessoasActionPerformed
         // TODO add your handling code here:
-        if(usuarioLogado.getNivel().equals("A")){
+        if(usuarioLogado.getNivel().equals("A") || usuarioLogado.getNivel().equals("N")){
             CadPessoa tela_pessoas = new CadPessoa();
             tela_pessoas.setVisible(true);
         }else{
