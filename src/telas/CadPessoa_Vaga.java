@@ -14,6 +14,8 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     /**
      * Creates new form CadPessoa_Vaga
      */
+    public int id_pessoa;
+    
     public CadPessoa_Vaga() {
         initComponents();
     }

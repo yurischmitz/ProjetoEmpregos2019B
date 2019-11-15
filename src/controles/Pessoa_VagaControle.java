@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import modelos.Cargo_Empresa;
 import modelos.Pessoa_Vaga;
+import telas.TelaPrincipal;
 
 /**
  *
@@ -103,6 +104,9 @@ public class Pessoa_VagaControle {
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
             SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null ";
+            if(TelaPrincipal.usuarioLogado == null){
+                SQL += "  ";
+            }
             SQL += " ORDER BY e.nome ";
             
             result = Conexao.stmt.executeQuery(SQL);

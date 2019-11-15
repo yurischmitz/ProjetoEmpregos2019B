@@ -340,7 +340,10 @@ public class CadPessoa extends javax.swing.JFrame {
             }else{
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
             }
+            
+            
             CadPessoa_Vaga tela_cad_pessoa_vaga = new CadPessoa_Vaga();
+            tela_cad_pessoa_vaga.id_pessoa = 1;
             tela_cad_pessoa_vaga.setVisible(true);
 
         }catch(Exception ex){
