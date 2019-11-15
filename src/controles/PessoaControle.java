@@ -40,14 +40,15 @@ public class PessoaControle {
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
         try{
-            stmt = con.prepareStatement("INSERT INTO pessoas(nome,cpf,data_nascimento,telefone,id_bairro,id_escolaridade) VALUES(?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO pessoas(nome,cpf,data_nascimento,senha,telefone,id_bairro,id_escolaridade) VALUES(?,?,?,?,?,?,?)");
             stmt.setString(1, objPessoa.getNome());
             stmt.setString(2, objPessoa.getCpf());
             Date data_nasc = Date.valueOf(objPessoa.getData_nascimento());
             stmt.setDate(3, data_nasc);
-            stmt.setString(4, objPessoa.getTelefone());
-            stmt.setInt(5, objPessoa.getId_bairro());
-            stmt.setInt(6, objPessoa.getId_escolaridade());
+            stmt.setString(4, objPessoa.getSenha());
+            stmt.setString(5, objPessoa.getTelefone());
+            stmt.setInt(6, objPessoa.getId_bairro());
+            stmt.setInt(7, objPessoa.getId_escolaridade());
            
             stmt.executeUpdate();
             
@@ -97,6 +98,7 @@ public class PessoaControle {
                 linha.add(result.getString(2));
                 linha.add(result.getString(3));
                 linha.add(result.getString(4));
+                //linha.add(result.getString(5));
                 linha.add(result.getString(5));
                 linha.add(result.getString(6));
                 linha.add(result.getString(7));
@@ -160,13 +162,60 @@ public class PessoaControle {
         //return (true);
     }
     
+    public Pessoa buscarCPF(String cpf){
+        try {
+            Conexao.abreConexao();
+            ResultSet rs = null;
+
+            String SQL = "";
+            SQL = " SELECT id, nome, cpf, data_nascimento, senha, telefone, id_bairro, id_escolaridade  ";
+            SQL += " FROM pessoas ";
+            SQL += " WHERE cpf = '" + cpf + "'";
+            SQL += " AND data_exclusao is null";
+
+            try{
+                System.out.println("Vai Executar Conexão em buscar");
+                rs = Conexao.stmt.executeQuery(SQL);
+                System.out.println("Executou Conexão em buscar");
+
+                objPessoa = new Pessoa();
+                if(rs.next() == true)
+                {
+                    objPessoa.setId(rs.getInt(1));
+                    objPessoa.setNome(rs.getString(2));
+                    objPessoa.setCpf(rs.getString(3));
+                    objPessoa.setData_nascimento(rs.getString(4));
+                    objPessoa.setSenha(rs.getString(5));
+                    objPessoa.setTelefone(rs.getString(6));
+                    objPessoa.setId_bairro(rs.getInt(7));
+                    objPessoa.setId_escolaridade(rs.getInt(8));
+                    
+                }
+            }
+
+            catch (SQLException ex )
+            {
+                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
+                return null;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage().toString());
+            return null;
+        }
+        
+        System.out.println ("Executou buscar pessoa pelo cpf com sucesso");
+        return objPessoa;
+    }
+    
+    
     public Pessoa buscar(String id){
         try {
             Conexao.abreConexao();
             ResultSet rs = null;
 
             String SQL = "";
-            SQL = " SELECT id, nome, cpf, data_nascimento, telefone, id_bairro, id_escolaridade  ";
+            SQL = " SELECT id, nome, cpf, data_nascimento, senha, telefone, id_bairro, id_escolaridade  ";
             SQL += " FROM pessoas ";
             SQL += " WHERE id = '" + id + "'";
             SQL += " AND data_exclusao is null";
@@ -183,9 +232,10 @@ public class PessoaControle {
                     objPessoa.setNome(rs.getString(2));
                     objPessoa.setCpf(rs.getString(3));
                     objPessoa.setData_nascimento(rs.getString(4));
-                    objPessoa.setTelefone(rs.getString(5));
-                    objPessoa.setId_bairro(rs.getInt(6));
-                    objPessoa.setId_escolaridade(rs.getInt(7));
+                    objPessoa.setSenha(rs.getString(5));
+                    objPessoa.setTelefone(rs.getString(6));
+                    objPessoa.setId_bairro(rs.getInt(7));
+                    objPessoa.setId_escolaridade(rs.getInt(8));
                     
                 }
             }

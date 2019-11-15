@@ -15,6 +15,15 @@ public class Pessoa {
     private String nome;
     private String cpf;
     private String data_nascimento;
+    private String senha;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     private String telefone;
     private int id_bairro;
     private int id_escolaridade;
