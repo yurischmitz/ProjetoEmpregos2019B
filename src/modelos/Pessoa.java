@@ -15,18 +15,12 @@ public class Pessoa {
     private String nome;
     private String cpf;
     private String data_nascimento;
-    private String senha;
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
     private String telefone;
     private int id_bairro;
+    private String uf_estado;
+    private int id_cidade;
     private int id_escolaridade;
+    //private String senha;
 
     public int getId() {
         return id;
@@ -76,6 +70,22 @@ public class Pessoa {
         this.id_bairro = id_bairro;
     }
 
+    public String getUf_estado() {
+        return uf_estado;
+    }
+
+    public void setUf_estado(String uf_estado) {
+        this.uf_estado = uf_estado;
+    }
+
+    public int getId_cidade() {
+        return id_cidade;
+    }
+
+    public void setId_cidade(int id_cidade) {
+        this.id_cidade = id_cidade;
+    }
+    
     public int getId_escolaridade() {
         return id_escolaridade;
     }

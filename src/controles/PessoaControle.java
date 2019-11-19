@@ -40,15 +40,15 @@ public class PessoaControle {
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
         try{
-            stmt = con.prepareStatement("INSERT INTO pessoas(nome,cpf,data_nascimento,senha,telefone,id_bairro,id_escolaridade) VALUES(?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO pessoas(nome,cpf,data_nascimento,telefone,id_bairro,id_escolaridade) VALUES(?,?,?,?,?,?)");
             stmt.setString(1, objPessoa.getNome());
             stmt.setString(2, objPessoa.getCpf());
             Date data_nasc = Date.valueOf(objPessoa.getData_nascimento());
             stmt.setDate(3, data_nasc);
-            stmt.setString(4, objPessoa.getSenha());
-            stmt.setString(5, objPessoa.getTelefone());
-            stmt.setInt(6, objPessoa.getId_bairro());
-            stmt.setInt(7, objPessoa.getId_escolaridade());
+            //stmt.setString(4, objPessoa.getSenha());
+            stmt.setString(4, objPessoa.getTelefone());
+            stmt.setInt(5, objPessoa.getId_bairro());
+            stmt.setInt(6, objPessoa.getId_escolaridade());
            
             stmt.executeUpdate();
             
@@ -72,10 +72,6 @@ public class PessoaControle {
         cabecalhos.add("Código");
         cabecalhos.add("Nome");
         cabecalhos.add("CPF");
-        cabecalhos.add("Data Nasc.");
-        cabecalhos.add("Telefone");
-        cabecalhos.add("Bairro");
-        cabecalhos.add("Escolaridade");
         cabecalhos.add("Excluir");
         
         ResultSet result = null;
@@ -83,10 +79,10 @@ public class PessoaControle {
         try {
 
             String SQL = "";
-            SQL = " SELECT p.id, p.nome, p.cpf, p.data_nascimento, p.telefone, b.nome AS bairro, e.escolaridade ";
-            SQL += " FROM pessoas p, escolaridades e, bairros b ";
-            SQL += " WHERE b.id = p.id_bairro AND e.id = p.id_escolaridade AND p.data_exclusao IS NULL ";
-            SQL += " ORDER BY p.nome ";
+            SQL = " SELECT id, nome, cpf ";
+            SQL += " FROM pessoas ";
+            SQL += " WHERE data_exclusao IS NULL ";
+            SQL += " ORDER BY nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
 
@@ -96,12 +92,7 @@ public class PessoaControle {
                 
                 linha.add(result.getInt(1));
                 linha.add(result.getString(2));
-                linha.add(result.getString(3));
-                linha.add(result.getString(4));
-                //linha.add(result.getString(5));
-                linha.add(result.getString(5));
-                linha.add(result.getString(6));
-                linha.add(result.getString(7));
+                linha.add(result.getString(3));;
                 linha.add("X");
                 
                 dadosTabela.add(linha);
@@ -130,13 +121,13 @@ public class PessoaControle {
             column = jtbPessoa.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
-                    column.setPreferredWidth(60);
+                    column.setPreferredWidth(80);
                     break;
                 case 1:
                     column.setPreferredWidth(180);
                     break;
                 case 2:
-                    column.setPreferredWidth(180);
+                    column.setPreferredWidth(150);
                     break;
                 case 3:
                     column.setPreferredWidth(20);
@@ -185,10 +176,10 @@ public class PessoaControle {
                     objPessoa.setNome(rs.getString(2));
                     objPessoa.setCpf(rs.getString(3));
                     objPessoa.setData_nascimento(rs.getString(4));
-                    objPessoa.setSenha(rs.getString(5));
-                    objPessoa.setTelefone(rs.getString(6));
-                    objPessoa.setId_bairro(rs.getInt(7));
-                    objPessoa.setId_escolaridade(rs.getInt(8));
+                    //objPessoa.setSenha(rs.getString(5));
+                    objPessoa.setTelefone(rs.getString(5));
+                    objPessoa.setId_bairro(rs.getInt(6));
+                    objPessoa.setId_escolaridade(rs.getInt(7));
                     
                 }
             }
@@ -208,55 +199,7 @@ public class PessoaControle {
         return objPessoa;
     }
     
-    
-    public Pessoa buscar(String id){
-        try {
-            Conexao.abreConexao();
-            ResultSet rs = null;
-
-            String SQL = "";
-            SQL = " SELECT id, nome, cpf, data_nascimento, senha, telefone, id_bairro, id_escolaridade  ";
-            SQL += " FROM pessoas ";
-            SQL += " WHERE id = '" + id + "'";
-            SQL += " AND data_exclusao is null";
-
-            try{
-                System.out.println("Vai Executar Conexão em buscar");
-                rs = Conexao.stmt.executeQuery(SQL);
-                System.out.println("Executou Conexão em buscar");
-
-                objPessoa = new Pessoa();
-                if(rs.next() == true)
-                {
-                    objPessoa.setId(rs.getInt(1));
-                    objPessoa.setNome(rs.getString(2));
-                    objPessoa.setCpf(rs.getString(3));
-                    objPessoa.setData_nascimento(rs.getString(4));
-                    objPessoa.setSenha(rs.getString(5));
-                    objPessoa.setTelefone(rs.getString(6));
-                    objPessoa.setId_bairro(rs.getInt(7));
-                    objPessoa.setId_escolaridade(rs.getInt(8));
-                    
-                }
-            }
-
-            catch (SQLException ex )
-            {
-                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
-                return null;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERRO: " + e.getMessage().toString());
-            return null;
-        }
-        
-        System.out.println ("Executou buscar pessoa com sucesso");
-        return objPessoa;
-    }
-    
-    public Boolean verificaExistenciaCPF()
-    {
+    public Boolean verificaExistenciaCPF(){
         try {
             Conexao.abreConexao();
             ResultSet rs = null;
@@ -294,6 +237,57 @@ public class PessoaControle {
             System.out.println("ERRO: " + e.getMessage().toString());
             return false;
         }
+    }
+    
+    public Pessoa buscar(String id){
+        try {
+            Conexao.abreConexao();
+            ResultSet rs = null;
+
+            String SQL = "";
+            SQL = " SELECT p.id, p.nome, p.cpf, p.data_nascimento, p.telefone, p.id_bairro, c.id, e.uf, p.id_escolaridade ";
+            SQL += " FROM pessoas p, cidades c, estados e, bairros b ";
+            SQL += " WHERE p.id_bairro = b.id AND b.id_cidade = c.id AND c.uf_estados = e.uf AND p.id = '" + id + "'";
+            SQL += " AND p.data_exclusao is null";
+            //SQL = " SELECT id, nome, cpf, data_nascimento, senha, telefone, id_bairro, id_escolaridade  ";
+            //SQL += " FROM pessoas ";
+            //SQL += " WHERE id = '" + id + "'";
+            //SQL += " AND data_exclusao is null";
+
+            try{
+                System.out.println("Vai Executar Conexão em buscar");
+                rs = Conexao.stmt.executeQuery(SQL);
+                System.out.println("Executou Conexão em buscar");
+
+                objPessoa = new Pessoa();
+                if(rs.next() == true)
+                {
+                    objPessoa.setId(rs.getInt(1));
+                    objPessoa.setNome(rs.getString(2));
+                    objPessoa.setCpf(rs.getString(3));
+                    objPessoa.setData_nascimento(rs.getString(4));
+                    objPessoa.setTelefone(rs.getString(5));
+                    objPessoa.setId_bairro(rs.getInt(6));
+                    objPessoa.setId_cidade(rs.getInt(7));
+                    objPessoa.setUf_estado(rs.getString(8));
+                    objPessoa.setId_escolaridade(rs.getInt(9));
+                    
+                }
+            }
+
+            catch (SQLException ex )
+            {
+                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
+                return null;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage().toString());
+            return null;
+        }
+        
+        System.out.println ("Executou buscar pessoa com sucesso");
+        return objPessoa;
     }
     
     public boolean excluir(){

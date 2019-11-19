@@ -27,16 +27,16 @@ public class CadPessoa extends javax.swing.JFrame {
     Combos cbComboEstado;
     Combos cbComboCidade;
     Combos cbComboEscolaridade;
+    Boolean selecionaItem;
     
     public CadPessoa() {
         initComponents();
         
-        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
+        //lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
          
         try{
-            
+            selecionaItem = false;
             cbComboEstado = new Combos(jcbEstado);
-            
             cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ORDER BY uf ");
             
             cbComboEscolaridade = new Combos(jcbEscolaridade);
@@ -51,8 +51,8 @@ public class CadPessoa extends javax.swing.JFrame {
      private void atualizarTabela(){
         try{
             
-           // objPessoaControle = new PessoaControle(null, jtbBairros);
-            //objBairroControle.preencher();
+           objPessoaControle = new PessoaControle(null, jtbPessoas);
+           objPessoaControle.preencher();
             
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage());
@@ -79,17 +79,50 @@ public class CadPessoa extends javax.swing.JFrame {
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
         }
-    }   
+        atualizarTabela();
+    } 
+    
+    private void preencherCampos(){
+        try{
+            //lblId.setText(String.valueOf(objBairro.getId()));
+            txtNome.setText(objPessoa.getNome());
+            txtCpf.setText(objPessoa.getCpf());
+            String data = Formatacao.ajustaDataDMA(objPessoa.getData_nascimento());
+            txtData.setText(data);
+            txtTelefone.setText(objPessoa.getTelefone());
+            
+            cbComboEstado.SetaComboBox(String.valueOf(objPessoa.getUf_estado()));
+            cbComboEscolaridade.SetaComboBox(String.valueOf(objPessoa.getId_escolaridade()));
+            
+            int cidade = objPessoa.getId_cidade();
+            cbComboCidade = new Combos(jcbCidade);
+            cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE id = '"+ cidade +"' ");
+            cbComboCidade.SetaComboBox(String.valueOf(objPessoa.getId_cidade()));
+            
+            int bairro = objPessoa.getId_bairro();
+            cbComboBairro = new Combos(jcbBairro);
+            cbComboBairro.PreencheCombo(" SELECT id, nome FROM bairros WHERE id = '"+ bairro +"' ");
+            cbComboBairro.SetaComboBox(String.valueOf(objPessoa.getId_bairro()));
+                       
+            //btnSalvar.setEnabled(true);
+            
+            atualizarTabela();
+            
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblNomeUsuario = new javax.swing.JLabel();
         btnCandidatar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         lblCadastrado = new javax.swing.JButton();
+        lblNomeUsuario1 = new javax.swing.JLabel();
+        lblNomeUsuario = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -108,6 +141,8 @@ public class CadPessoa extends javax.swing.JFrame {
         txtData = new javax.swing.JFormattedTextField();
         txtCpf = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbPessoas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 0, 0));
@@ -115,11 +150,6 @@ public class CadPessoa extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeUsuario.setText("  Bem-vindo, nomeusuario! ");
-        jPanel1.add(lblNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 238, 50));
 
         btnCandidatar.setText("Candidatar-se");
         btnCandidatar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,11 +170,21 @@ public class CadPessoa extends javax.swing.JFrame {
         lblCadastrado.setText("Já tenho cadastro");
         jPanel1.add(lblCadastrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 11, -1, 31));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 738, -1));
+        lblNomeUsuario1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblNomeUsuario1.setForeground(new java.awt.Color(255, 255, 255));
+        lblNomeUsuario1.setText("CPF");
+        jPanel1.add(lblNomeUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 238, 20));
+
+        lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblNomeUsuario.setText("Bem-vindo, nomeusuario!");
+        jPanel1.add(lblNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 738, 60));
 
         jLabel1.setFont(new java.awt.Font("Sitka Text", 1, 12)); // NOI18N
         jLabel1.setText("Seus dados cadastrais abaixo");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 61, 284, 21));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 284, 21));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Nome:");
@@ -225,28 +265,43 @@ public class CadPessoa extends javax.swing.JFrame {
         }
         getContentPane().add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 260, 40));
 
-        setSize(new java.awt.Dimension(751, 520));
+        jtbPessoas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Título 1", "Título 2", "Título 3"
+            }
+        ));
+        jtbPessoas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtbPessoasMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtbPessoas);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 360, 100));
+
+        setSize(new java.awt.Dimension(751, 571));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbEstadoItemStateChanged
         // TODO add your handling code here:
-        
         try{
-            if(jcbEstado.getSelectedIndex() > 0){
-                
-                Combos estado = (Combos) jcbEstado.getSelectedItem();
-                String sigla = estado.getCodigo();
-                
-                cbComboCidade = new Combos(jcbCidade);
-                cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");
-                
+            if(selecionaItem == false){
+                if(jcbEstado.getSelectedIndex() > 0){
+
+                    Combos estado = (Combos) jcbEstado.getSelectedItem();
+                    String sigla = estado.getCodigo();
+
+                    cbComboCidade = new Combos(jcbCidade);
+                    cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");       
+                }
             }
-        
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
         }
-        
     }//GEN-LAST:event_jcbEstadoItemStateChanged
 
     private void jcbCidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCidadeItemStateChanged
@@ -342,17 +397,64 @@ public class CadPessoa extends javax.swing.JFrame {
             }
             
             
-            CadPessoa_Vaga tela_cad_pessoa_vaga = new CadPessoa_Vaga();
-            tela_cad_pessoa_vaga.id_pessoa = 1;
-            tela_cad_pessoa_vaga.setVisible(true);
+            //CadPessoa_Vaga tela_cad_pessoa_vaga = new CadPessoa_Vaga();
+            //tela_cad_pessoa_vaga.id_pessoa = 1;
+            //tela_cad_pessoa_vaga.setVisible(true);
 
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
+        atualizarTabela();
     }//GEN-LAST:event_btnCandidatarActionPerformed
 
-    
+    private void jtbPessoasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPessoasMousePressed
+        // TODO add your handling code here:
+        try{
+            selecionaItem = true;
+            int linhaSelecionada = jtbPessoas.getSelectedRow();//pega a linha selecionada
+            String codigo = jtbPessoas.getModel().getValueAt(linhaSelecionada, 0).toString(); // Primeira coluna da linha
+
+            //Verifica se clicou na coluna 3 = EXCLUIR
+            if(jtbPessoas.isColumnSelected(3)){
+                try{
+                    boolean wPergunta = CaixaDeDialogo.obterinstancia().pedirConfirmacao("Tem certeza de que deseja excluir?","",'p');
+                    if (wPergunta == true){
+                        objPessoa = new Pessoa();
+                        objPessoa.setId(Integer.parseInt(codigo));
+                        
+                        objPessoaControle = new PessoaControle(objPessoa, null);
+                        boolean wControle = objPessoaControle.excluir();
+                        
+                        if (wControle){
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!");
+                        }else{
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!");
+                        }
+                    }
+                    atualizarTabela();
+
+                }catch(Exception ex){
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+                }
+            }else{
+            
+                objPessoaControle = new PessoaControle(null, null);
+                objPessoa = objPessoaControle.buscar(codigo);
+                if (objPessoa != null && objPessoa.getId() > 0){
+                    preencherCampos();
+                }else{
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
+                }
+            }
+            selecionaItem = false;
+        
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
+            selecionaItem = false;
+        }
+    }//GEN-LAST:event_jtbPessoasMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -402,12 +504,15 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbBairro;
     private javax.swing.JComboBox<String> jcbCidade;
     private javax.swing.JComboBox<String> jcbEscolaridade;
     private javax.swing.JComboBox<String> jcbEstado;
+    private javax.swing.JTable jtbPessoas;
     private javax.swing.JButton lblCadastrado;
     private javax.swing.JLabel lblNomeUsuario;
+    private javax.swing.JLabel lblNomeUsuario1;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtNome;
