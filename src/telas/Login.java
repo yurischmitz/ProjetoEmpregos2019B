@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelos.Usuario;
 import ferramentas.CaixaDeDialogo;
+import ferramentas.Criptografia;
 
 /**
  *
@@ -87,17 +88,12 @@ public class Login extends javax.swing.JFrame {
         
         UsuarioControle login = new UsuarioControle();
         
-        //txtUsuario.setText("Yuri");
-        //txtSenha.setText("123");
-        
         String usuario = txtUsuario.getText().trim();//captura o usuario da tela
         String senha = txtSenha.getText().toString();//captura a senha da tela
         
-        //if(){
+        //Criptografia.criptografar(senha);
+        
         Usuario user = login.Login(usuario, senha);
-        //}else{
-            
-        //}
         
         if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
             System.out.println("Usuário não existe");
@@ -117,26 +113,8 @@ public class Login extends javax.swing.JFrame {
 
     private void lblSemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblSemLoginActionPerformed
         // TODO add your handling code here:
-        UsuarioControle login = new UsuarioControle();
-        
-        txtUsuario.setText("normal");
-        txtSenha.setText("123");
-        
-        String usuario = txtUsuario.getText().trim();//captura o usuario da tela
-        String senha = txtSenha.getText().toString();//captura a senha da tela
-        
-        Usuario user = login.Login(usuario, senha);
-        
-        if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
-            System.out.println("Usuário não existe");
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!");
-            
-        }else{ //caso o usuario de retorno seja válido, a tela principal abre
-            TelaPrincipal.usuarioLogado = user;
-            TelaPrincipal tela = new TelaPrincipal();
-            tela.setVisible(true);
-            this.setVisible(false);//fecha tela de login
-        }
+        CadUsuario tela_usuarios = new CadUsuario();
+        tela_usuarios.setVisible(true);
     }//GEN-LAST:event_lblSemLoginActionPerformed
 
     /**

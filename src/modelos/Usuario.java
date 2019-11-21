@@ -13,6 +13,7 @@ public class Usuario {
     
     private String login;
     private String nome;
+    private String senha;
     private String nivel;
 
     public String getNivel() {
@@ -38,5 +39,14 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
     
 }

@@ -28,10 +28,9 @@ public class UsuarioControle {
         StringBuilder comandoSQL = new StringBuilder();
         comandoSQL.append(" SELECT login, nome, nivel");
         comandoSQL.append(" FROM usuarios");
-        comandoSQL.append(" WHERE nome = '" + usuario + "'");
-        comandoSQL.append(" OR login = '" + usuario + "'");
-        //comandoSQL.append(" AND senha = '" + senha + "'");
+        comandoSQL.append(" WHERE login = '" + usuario + "'");
         comandoSQL.append(" AND senha = MD5('" + senha + "')");
+        //comandoSQL.append(" AND senha = '" + senha + "'");
 
         try {
             System.out.println("Vai Executar Conexão em buscar area");
