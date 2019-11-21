@@ -48,7 +48,7 @@ public class CadPessoa extends javax.swing.JFrame {
         limparTela();
     }
     
-     private void atualizarTabela(){
+    private void atualizarTabela(){
         try{
             
            objPessoaControle = new PessoaControle(null, jtbPessoas);

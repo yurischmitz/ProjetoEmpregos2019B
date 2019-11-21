@@ -104,9 +104,9 @@ public class Pessoa_VagaControle {
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
             SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null ";
-            if(TelaPrincipal.usuarioLogado == null){
-                SQL += "  ";
-            }
+            //if(TelaPrincipal.usuarioLogado == null){
+               // SQL += "  ";
+            //}
             SQL += " ORDER BY e.nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
@@ -118,6 +118,7 @@ public class Pessoa_VagaControle {
                 linha.add(result.getInt(1));
                 linha.add(result.getString(2));
                 linha.add(result.getString(3));
+                linha.add(result.getString(4));
                 linha.add("X");
                 
                 dadosTabela.add(linha);
@@ -218,8 +219,7 @@ public class Pessoa_VagaControle {
         return objPessoa_Vaga;
     }
       
-    
-     public boolean excluir(){
+    public boolean excluir(){
         
         Conexao.abreConexao();
         Connection con = Conexao.obterConexao();

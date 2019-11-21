@@ -14,6 +14,8 @@ public class Pessoa_Vaga {
     private int id;
     private int id_pessoa;
     private int id_cargo_empresa;
+    private int id_empresa;
+    private int id_cargo;
 
     public int getId() {
         return id;
@@ -39,6 +41,20 @@ public class Pessoa_Vaga {
         this.id_cargo_empresa = id_cargo_empresa;
     }
     
-    
+    public int getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(int id_empresa) {
+        this.id_empresa = id_empresa;
+    }
+
+    public int getId_cargo() {
+        return id_cargo;
+    }
+
+    public void setId_cargo(int id_cargo) {
+        this.id_cargo = id_cargo;
+    }
     
 }
