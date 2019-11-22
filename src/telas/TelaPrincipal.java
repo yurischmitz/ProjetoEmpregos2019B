@@ -76,6 +76,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCargo_Empresa = new javax.swing.JMenuItem();
         menuEscolaridades = new javax.swing.JMenuItem();
         menuPessoas = new javax.swing.JMenuItem();
+        menuPessoasVagas = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,6 +152,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menu.add(menuPessoas);
+
+        menuPessoasVagas.setText("Pessoas Vagas");
+        menuPessoasVagas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPessoasVagasActionPerformed(evt);
+            }
+        });
+        menu.add(menuPessoasVagas);
 
         barraMenu.add(menu);
 
@@ -254,6 +263,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuPessoasActionPerformed
 
+    private void menuPessoasVagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPessoasVagasActionPerformed
+        // TODO add your handling code here:
+        if(usuarioLogado.getNivel().equals("A") || usuarioLogado.getNivel().equals("N")){
+            CadPessoa_Vaga tela_pessoas = new CadPessoa_Vaga();
+            tela_pessoas.setVisible(true);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+        }
+    }//GEN-LAST:event_menuPessoasVagasActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -305,6 +324,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEmpresas;
     private javax.swing.JMenuItem menuEscolaridades;
     private javax.swing.JMenuItem menuPessoas;
+    private javax.swing.JMenuItem menuPessoasVagas;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 }
