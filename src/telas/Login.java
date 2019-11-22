@@ -89,9 +89,6 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUsuario.getText().trim();//captura o usuario da tela
         String senha = txtSenha.getText().toString();//captura a senha da tela
         
-        //objUsuario.setCpf();
-        
-        //Criptografia.criptografar(senha);
         
         Usuario user = login.Login(usuario, senha);
         

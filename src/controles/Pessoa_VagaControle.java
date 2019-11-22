@@ -40,6 +40,8 @@ public class Pessoa_VagaControle {
         Conexao.abreConexao();
         Connection con = Conexao.obterConexao();
         PreparedStatement stmt = null;
+    
+        //buscar id_cargo_empresa
         
         try{
             stmt = con.prepareStatement("INSERT INTO pessoas_vagas(id_pessoa,id_cargo_empresa) VALUES(?,?)");
@@ -218,7 +220,45 @@ public class Pessoa_VagaControle {
         System.out.println ("Executou buscar area com sucesso");
         return objPessoa_Vaga;
     }
-      
+    
+    public int buscarCargoEmpresa(int idCargo, int idEmpresa) {
+        try {
+            Conexao.abreConexao();
+            ResultSet rs = null;
+
+            String SQL = "";
+            SQL = " SELECT id, id_cargo, id_empresa ";
+            SQL += " FROM cargo_empresa ";
+            SQL += " WHERE id_cargo = '" + idCargo + "' AND id_empresa = '" + idEmpresa + "' ";
+            SQL += " AND data_exclusao is null ";
+
+            try{
+                System.out.println("Vai Executar Conexão em buscar");
+                rs = Conexao.stmt.executeQuery(SQL);
+                System.out.println("Executou Conexão em buscar");
+
+                objPessoa_Vaga = new Pessoa_Vaga();
+                if(rs.next() == true)
+                {
+                    return rs.getInt(1);
+                }
+            }
+
+            catch (SQLException ex )
+            {
+                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
+                return 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage().toString());
+            return 0;
+        }
+        
+        System.out.println ("Executou buscar area com sucesso");
+        return 0;
+    }
+    
     public boolean excluir(){
         
         Conexao.abreConexao();

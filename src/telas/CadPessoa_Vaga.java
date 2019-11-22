@@ -36,14 +36,11 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             //selecionaItem = false;
             
             cbComboPessoa = new Combos(jcbPessoa);
-            cbComboPessoa.PreencheCombo(" SELECT p.id, p.nome FROM pessoas p, pessoas_vagas pv WHERE pv.id_pessoa = p.id GROUP BY p.id, p.nome ORDER BY p.nome ");
+            cbComboPessoa.PreencheCombo(" SELECT id, nome FROM pessoas ORDER BY nome ");
             
             cbComboEmpresa = new Combos(jcbEmpresa);
             cbComboEmpresa.PreencheCombo(" SELECT e.id, e.nome FROM empresas e, cargo_empresa ce WHERE ce.id_empresa = e.id AND ce.data_exclusao IS NULL GROUP BY e.id, ce.id_empresa ORDER BY nome ");
             
-            cbComboCargo = new Combos(jcbCargo);
-            //cbComboCargo.PreencheCombo(" SELECT c.id, c.nome FROM cargos c, cargo_empresa ce WHERE ce.id_cargo = c.id AND ce.data_exclusao IS NULL GROUP BY c.id, ce.id_cargo ORDER BY nome");
-            cbComboCargo.PreencheCombo(" SELECT c.id, c.nome FROM cargos c, cargo_empresa ce WHERE ce.id_cargo = c.id AND ce.data_exclusao IS NULL AND 1 = 2 GROUP BY c.id, ce.id_cargo ORDER BY nome");
             
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
@@ -225,16 +222,26 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
        try{
             boolean retorno;
             //validar os campos
-                      
             
             Combos c = (Combos) jcbPessoa.getSelectedItem();
-            objPessoa_Vaga.setId_pessoa(Integer.parseInt(c.getCodigo()));
+            objPessoa_Vaga.setId_pessoa(Integer.parseInt(c.getCodigo())); 
+            
+            c = (Combos) jcbCargo.getSelectedItem();
+            objPessoa_Vaga.setId_cargo(Integer.parseInt(c.getCodigo()));
+            
+            c = (Combos) jcbEmpresa.getSelectedItem();
+            objPessoa_Vaga.setId_empresa(Integer.parseInt(c.getCodigo()));
+            
+            
+            int codigo = objPessoa_VagaControle.buscarCargoEmpresa(objPessoa_Vaga.getId_cargo(), objPessoa_Vaga.getId_empresa());
+            objPessoa_Vaga.setId_cargo_empresa(codigo);
+            
                 
             if(!lblId.getText().equals("ID")){
                 objPessoa_Vaga.setId(Integer.parseInt(lblId.getText()));
-                objPessoa_VagaControle = new Pessoa_VagaControle(objPessoa_Vaga, null); 
-                retorno = objPessoa_VagaControle.alterar();
-            }else{
+                //objPessoa_VagaControle = new Pessoa_VagaControle(objPessoa_Vaga, null); 
+                //retorno = objPessoa_VagaControle.alterar();
+            //}else{
                 objPessoa_VagaControle = new Pessoa_VagaControle(objPessoa_Vaga, null);
                 retorno = objPessoa_VagaControle.incluir();
             }

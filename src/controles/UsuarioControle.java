@@ -17,6 +17,8 @@ import modelos.Usuario;
  */
 public class UsuarioControle {
     
+    Usuario objUsuario;
+    
     public Usuario Login(String usuario, String senha){
         //INÍCIO CONEXÃO COM O BANCO DE DADOS
         System.out.println("Vai abrir a conexão com o banco de dados");
@@ -26,7 +28,7 @@ public class UsuarioControle {
         ResultSet rs = null;
 
         StringBuilder comandoSQL = new StringBuilder();
-        comandoSQL.append(" SELECT login, nome, nivel");
+        comandoSQL.append(" SELECT login, nome, nivel, cpf");
         comandoSQL.append(" FROM usuarios");
         comandoSQL.append(" WHERE login = '" + usuario + "'");
         comandoSQL.append(" AND senha = MD5('" + senha + "')");
@@ -42,6 +44,7 @@ public class UsuarioControle {
                 user.setLogin(rs.getString("login"));
                 user.setNome(rs.getString("nome"));
                 user.setNivel(rs.getString("nivel"));
+                user.setCpf(rs.getString("cpf"));
             }
         } catch (SQLException ex) {
             System.out.println("ERRO de SQL: " + ex.getMessage().toString());

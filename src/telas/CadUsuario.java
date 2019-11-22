@@ -149,8 +149,7 @@ public class CadUsuario extends javax.swing.JFrame {
             objUsuario.setLogin(txtLogin.getText());
             objUsuario.setNome(txtNome.getText());
             
-            //String senha = txtSenha.getText();
-            //objUsuario.setSenha(Criptografia.criptografar(senha));
+            
             objUsuario.setSenha(txtSenha.getText());
             
             objUsuario.setNivel("N");

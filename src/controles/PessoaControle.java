@@ -62,7 +62,143 @@ public class PessoaControle {
         }
     }
     
+     public boolean alterar(){
+         
+        Conexao.abreConexao();
+        Connection con = Conexao.obterConexao();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement(" UPDATE pessoas SET nome=?, cpf=?, data_nascimento=?, telefone=?, id_bairro=?, id_escolaridade=? WHERE id=? ");
+            stmt.setString(1, objPessoa.getNome());
+            stmt.setString(2, objPessoa.getCpf());
+            Date data_nasc = Date.valueOf(objPessoa.getData_nascimento());
+            stmt.setDate(3, data_nasc);
+            stmt.setString(4, objPessoa.getTelefone());
+            stmt.setInt(5, objPessoa.getId_bairro());
+            stmt.setInt(6, objPessoa.getId_escolaridade());
+            stmt.setInt(7, objPessoa.getId());
+            
+            stmt.executeUpdate();
+            
+            return true;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }finally{
+            Conexao.fecharConexao(con, stmt);
+        }
+        
+    }
+    
     public void preencher(){
+        
+        Conexao.abreConexao();
+        
+        Vector<String> cabecalhos = new Vector<String>();
+        Vector dadosTabela = new Vector(); //receber os dados do banco
+        
+        cabecalhos.add("#");
+        cabecalhos.add("Nome");
+        cabecalhos.add("CPF");
+        cabecalhos.add("Cidade");
+        cabecalhos.add("Bairro");
+        cabecalhos.add("Escolaridade");
+        cabecalhos.add("X");
+        
+        ResultSet result = null;
+        
+        try {
+
+            String SQL = "";
+            SQL = " SELECT p.id, p.nome, p.cpf, c.nome, b.nome as bairro, e.escolaridade ";
+            SQL += " FROM pessoas p, cidades c, bairros b, escolaridades e ";
+            SQL += " WHERE p.id_bairro = b.id AND b.id_cidade = c.id AND p.id_escolaridade = e.id AND p.data_exclusao IS NULL ";
+            SQL += " ORDER BY p.nome ";
+            
+            result = Conexao.stmt.executeQuery(SQL);
+
+            Vector<Object> linha;
+            while(result.next()) {
+                linha = new Vector<Object>();
+                
+                linha.add(result.getInt(1));
+                linha.add(result.getString(2));
+                linha.add(result.getString(3));
+                linha.add(result.getString(4));
+                linha.add(result.getString(5));
+                linha.add(result.getString(6));
+                linha.add("X");
+                
+                dadosTabela.add(linha);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("problemas para popular tabela...");
+            System.out.println(e);
+        }
+
+        jtbPessoa.setModel(new DefaultTableModel(dadosTabela, cabecalhos) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+              return false;
+            }
+            // permite seleção de apenas uma linha da tabela
+        });
+
+        // permite seleção de apenas uma linha da tabela
+        jtbPessoa.setSelectionMode(0);
+
+        // redimensiona as colunas de uma tabela
+        TableColumn column = null;
+        for (int i = 0; i <= 6; i++) {
+            column = jtbPessoa.getColumnModel().getColumn(i);
+            switch (i) {
+                case 0:
+                    column.setPreferredWidth(20);
+                    break;
+                case 1:
+                    column.setPreferredWidth(100);
+                    break;
+                case 2:
+                    column.setPreferredWidth(80);
+                    break;
+                case 3:
+                    column.setPreferredWidth(100);
+                    break;
+                case 4:
+                    column.setPreferredWidth(100);
+                    break;
+                case 5:
+                    column.setPreferredWidth(100);
+                    break;
+                case 6:
+                    column.setPreferredWidth(20);
+                    break;
+            }
+        }
+        
+        jtbPessoa.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected,
+                        hasFocus, row, column);
+                if (row % 2 == 0) {
+                    setBackground(Color.LIGHT_GRAY);
+                } else {
+                    setBackground(Color.WHITE);
+                }
+                return this;
+            }
+        });
+        //return (true);
+    }
+    
+    public void preencherUsuarioLogado(){
         
         Conexao.abreConexao();
         
@@ -81,7 +217,7 @@ public class PessoaControle {
             String SQL = "";
             SQL = " SELECT id, nome, cpf ";
             SQL += " FROM pessoas ";
-            SQL += " WHERE data_exclusao IS NULL ";
+            SQL += " WHERE cpf = '" + objPessoa.getCpf() + "' AND data_exclusao IS NULL ";
             SQL += " ORDER BY nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
