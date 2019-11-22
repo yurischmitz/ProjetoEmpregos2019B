@@ -9,6 +9,8 @@ import controles.UserControle;
 import controles.UsuarioControle;
 import ferramentas.CaixaDeDialogo;
 import ferramentas.Criptografia;
+import ferramentas.Formatacao;
+import ferramentas.Validacao;
 import modelos.Usuario;
 
 /**
@@ -45,6 +47,8 @@ public class CadUsuario extends javax.swing.JFrame {
         lblNome = new javax.swing.JLabel();
         lblNome1 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
+        lblCpf = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Usuário");
@@ -101,7 +105,7 @@ public class CadUsuario extends javax.swing.JFrame {
         getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 140, -1));
 
         lblLogin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblLogin.setText("Loign*");
+        lblLogin.setText("Login*");
         getContentPane().add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 40, 20));
 
         lblNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -112,6 +116,17 @@ public class CadUsuario extends javax.swing.JFrame {
         lblNome1.setText("Senha*");
         getContentPane().add(lblNome1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 60, 20));
         getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 139, -1));
+
+        lblCpf.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCpf.setText("CPF*");
+        getContentPane().add(lblCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 40, 20));
+
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 140, 30));
 
         setSize(new java.awt.Dimension(412, 252));
         setLocationRelativeTo(null);
@@ -124,13 +139,22 @@ public class CadUsuario extends javax.swing.JFrame {
             //validar os campos
             
             objUsuario = new Usuario();
+            
+            String cpf = Formatacao.removerFormatacao(txtCpf.getText());        
+            if(!Validacao.validarCPF(cpf)){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um CPF corretemente");
+                return;
+            }
+            
             objUsuario.setLogin(txtLogin.getText());
             objUsuario.setNome(txtNome.getText());
             
-            String senha = txtSenha.getText();
-            objUsuario.setSenha(Criptografia.criptografar(senha));
+            //String senha = txtSenha.getText();
+            //objUsuario.setSenha(Criptografia.criptografar(senha));
+            objUsuario.setSenha(txtSenha.getText());
             
             objUsuario.setNivel("N");
+            objUsuario.setCpf(cpf.trim());
             
             System.out.println(objUsuario.getSenha());
             
@@ -144,7 +168,7 @@ public class CadUsuario extends javax.swing.JFrame {
                 retorno = objUserControle.incluir();
             //}
 
-            if(retorno = true){
+            if(retorno == true){
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
             }else{
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
@@ -204,10 +228,12 @@ public class CadUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpar1;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNome1;
     private javax.swing.JLabel lblNomeUsuario;
+    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;

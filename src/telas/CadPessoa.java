@@ -32,9 +32,23 @@ public class CadPessoa extends javax.swing.JFrame {
     public CadPessoa() {
         initComponents();
         
-        //lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
+        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
          
         try{
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
+                txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
+                txtCpf.setText(TelaPrincipal.usuarioLogado.getCpf());
+                
+                txtNome.setEditable(false);
+                txtCpf.setEditable(false);
+                
+            }else{
+                txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
+                txtNome.setEditable(true);
+                txtCpf.setEditable(true);
+            }
+            
+
             selecionaItem = false;
             cbComboEstado = new Combos(jcbEstado);
             cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ORDER BY uf ");
@@ -51,8 +65,10 @@ public class CadPessoa extends javax.swing.JFrame {
     private void atualizarTabela(){
         try{
             
-           objPessoaControle = new PessoaControle(null, jtbPessoas);
-           objPessoaControle.preencher();
+            if(!TelaPrincipal.usuarioLogado.getNivel().equals("N")){
+                objPessoaControle = new PessoaControle(null, jtbPessoas);
+                objPessoaControle.preencher();
+            }
             
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage());
@@ -61,8 +77,8 @@ public class CadPessoa extends javax.swing.JFrame {
     
     private void limparTela(){
         try{
-            txtNome.setText("");
-            txtCpf.setText("");
+            //txtNome.setText("");
+            //txtCpf.setText("");
             txtData.setText("");
             txtTelefone.setText("");
             
@@ -84,7 +100,7 @@ public class CadPessoa extends javax.swing.JFrame {
     
     private void preencherCampos(){
         try{
-            //lblId.setText(String.valueOf(objBairro.getId()));
+            lblId.setText(String.valueOf(objPessoa.getId()));
             txtNome.setText(objPessoa.getNome());
             txtCpf.setText(objPessoa.getCpf());
             String data = Formatacao.ajustaDataDMA(objPessoa.getData_nascimento());
@@ -120,10 +136,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnCandidatar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        lblCadastrado = new javax.swing.JButton();
-        lblNomeUsuario1 = new javax.swing.JLabel();
         lblNomeUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -143,21 +157,23 @@ public class CadPessoa extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbPessoas = new javax.swing.JTable();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Pessoas");
         setBackground(new java.awt.Color(153, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCandidatar.setText("Candidatar-se");
+        btnCandidatar.setText("Salvar");
         btnCandidatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCandidatarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCandidatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(627, 11, -1, 31));
+        jPanel1.add(btnCandidatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, 31));
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,15 +181,7 @@ public class CadPessoa extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 11, -1, 31));
-
-        lblCadastrado.setText("Já tenho cadastro");
-        jPanel1.add(lblCadastrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 11, -1, 31));
-
-        lblNomeUsuario1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblNomeUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeUsuario1.setText("CPF");
-        jPanel1.add(lblNomeUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 238, 20));
+        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, -1, 31));
 
         lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,9 +190,9 @@ public class CadPessoa extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 738, 60));
 
-        jLabel1.setFont(new java.awt.Font("Sitka Text", 1, 12)); // NOI18N
-        jLabel1.setText("Seus dados cadastrais abaixo");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 284, 21));
+        jLabel12.setFont(new java.awt.Font("Sitka Text", 1, 12)); // NOI18N
+        jLabel12.setText("Seus dados cadastrais abaixo");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 21));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Nome:");
@@ -208,30 +216,30 @@ public class CadPessoa extends javax.swing.JFrame {
                 jcbCidadeItemStateChanged(evt);
             }
         });
-        getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 127, 34));
+        getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 127, 34));
 
         jcbEscolaridade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jcbEscolaridade, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 300, 40));
+        getContentPane().add(jcbEscolaridade, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 300, 40));
         getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 260, 37));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Estado");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Escolaridade");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 101, 25));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 101, 25));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Bairro");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, -1, -1));
 
         jcbBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jcbBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 300, 40));
+        getContentPane().add(jcbBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 300, 40));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Cidade");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, -1, -1));
 
         jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbEstado.addItemListener(new java.awt.event.ItemListener() {
@@ -239,7 +247,7 @@ public class CadPessoa extends javax.swing.JFrame {
                 jcbEstadoItemStateChanged(evt);
             }
         });
-        getContentPane().add(jcbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 126, 34));
+        getContentPane().add(jcbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 126, 34));
 
         btnCandidatar1.setText("Candidatar-se");
         getContentPane().add(btnCandidatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -280,9 +288,13 @@ public class CadPessoa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbPessoas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 360, 100));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 690, 100));
 
-        setSize(new java.awt.Dimension(751, 571));
+        lblId.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
+        lblId.setText("ID");
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 40, 20));
+
+        setSize(new java.awt.Dimension(751, 663));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -387,8 +399,14 @@ public class CadPessoa extends javax.swing.JFrame {
             c = (Combos) jcbEscolaridade.getSelectedItem();
             objPessoa.setId_escolaridade(Integer.parseInt(c.getCodigo()));
                 
-            objPessoaControle = new PessoaControle(objPessoa, null);
-            retorno = objPessoaControle.incluir();
+            if(!lblId.getText().equals("ID")){
+                objPessoa.setId(Integer.parseInt(lblId.getText()));
+                objPessoaControle = new PessoaControle(objPessoa, null); 
+                retorno = objPessoaControle.alterar();
+            }else{
+                objPessoaControle = new PessoaControle(objPessoa, null);
+                retorno = objPessoaControle.incluir();
+            }
             
             if(retorno == true){
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
@@ -415,8 +433,8 @@ public class CadPessoa extends javax.swing.JFrame {
             int linhaSelecionada = jtbPessoas.getSelectedRow();//pega a linha selecionada
             String codigo = jtbPessoas.getModel().getValueAt(linhaSelecionada, 0).toString(); // Primeira coluna da linha
 
-            //Verifica se clicou na coluna 3 = EXCLUIR
-            if(jtbPessoas.isColumnSelected(3)){
+            //Verifica se clicou na coluna 6 = EXCLUIR
+            if(jtbPessoas.isColumnSelected(6)){
                 try{
                     boolean wPergunta = CaixaDeDialogo.obterinstancia().pedirConfirmacao("Tem certeza de que deseja excluir?","",'p');
                     if (wPergunta == true){
@@ -442,6 +460,8 @@ public class CadPessoa extends javax.swing.JFrame {
                 objPessoaControle = new PessoaControle(null, null);
                 objPessoa = objPessoaControle.buscar(codigo);
                 if (objPessoa != null && objPessoa.getId() > 0){
+                    txtCpf.setEditable(false);
+                    txtData.setEditable(false);
                     preencherCampos();
                 }else{
                     CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
@@ -494,9 +514,9 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JButton btnCandidatar;
     private javax.swing.JButton btnCandidatar1;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -510,9 +530,8 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbEscolaridade;
     private javax.swing.JComboBox<String> jcbEstado;
     private javax.swing.JTable jtbPessoas;
-    private javax.swing.JButton lblCadastrado;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNomeUsuario;
-    private javax.swing.JLabel lblNomeUsuario1;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtNome;
