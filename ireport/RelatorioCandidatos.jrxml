@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioCandidatos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2f9c075-07ae-4e60-82d1-f48eac1acfd9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT pv.id as codigo, p.nome as pessoa, c.nome as cargo, e.nome as empresa
+FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce
+WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND
+ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="pessoa" class="java.lang.String"/>
+	<field name="cargo" class="java.lang.String"/>
+	<field name="empresa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="167" y="30" width="223" height="20" uuid="2ca67fa2-c8b7-4bed-bea6-f39ae30af79b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE CANDIDATOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="0" width="100" height="20" uuid="32f1a5a0-11b6-4c4d-a7f5-73bb580d0792"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="100" height="20" uuid="126b7fe2-b5d7-4102-857d-b2e5468ff143"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="0" width="100" height="20" uuid="2e687d5d-1dd1-4b22-88d4-33018502539c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="0" width="100" height="20" uuid="64356f4b-633c-4e20-9365-24a65a096b11"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="15" y="41" width="100" height="20" uuid="35ddb158-6af8-415e-acad-52326e1553f5"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="41" width="100" height="20" uuid="966fd847-8681-4fa7-b6f8-4c45a4dfd19f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="41" width="100" height="20" uuid="e7136924-b752-4384-80a4-a91d86e3ba21"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="41" width="100" height="20" uuid="53409b39-ff67-4711-a1df-1e5da376c69e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

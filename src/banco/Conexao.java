@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Conexao {
      private final static String DRIVER = "org.postgresql.Driver";
-    private final static String URL = "jdbc:postgresql://localhost:5432/empregos";
+    private final static String URL = "jdbc:postgresql://localhost:5432/empregosv3";
     private final static String USER = "postgres";
     private final static String PASS = "postgres";
     

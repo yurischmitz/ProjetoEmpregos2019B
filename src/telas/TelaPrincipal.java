@@ -1,7 +1,15 @@
 package telas;
 
+import controle.RelatorioController;
 import ferramentas.CaixaDeDialogo;
+import java.sql.ResultSet;
+import java.util.HashMap;
 import modelos.Usuario;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -77,6 +85,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuEscolaridades = new javax.swing.JMenuItem();
         menuPessoas = new javax.swing.JMenuItem();
         menuPessoasVagas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuRelCadPessoas = new javax.swing.JMenuItem();
+        menuRelCandidaturas = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -162,6 +173,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menu.add(menuPessoasVagas);
 
         barraMenu.add(menu);
+
+        jMenu1.setText("Relatórios");
+
+        menuRelCadPessoas.setText("Cadastro de pessoas");
+        menuRelCadPessoas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelCadPessoasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuRelCadPessoas);
+
+        menuRelCandidaturas.setText("Candidaturas");
+        menuRelCandidaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelCandidaturasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuRelCandidaturas);
+
+        barraMenu.add(jMenu1);
 
         menuSair.setText("Sair");
         menuSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,6 +304,61 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuPessoasVagasActionPerformed
 
+    private void menuRelCandidaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelCandidaturasActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+            String wSelect = "";
+            wSelect = " SELECT pv.id as codigo, p.nome as pessoa, c.nome as cargo, e.nome as empresa ";
+            wSelect += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
+            wSelect += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
+            wSelect += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null ";
+            //if(TelaPrincipal.usuarioLogado == null){
+               // SQL += "  ";
+            //}
+            wSelect += " ORDER BY e.nome ";
+            
+            RelatorioController objRelController = new RelatorioController();
+            ResultSet resultSet = objRelController.buscarRelatorio(wSelect);//Buscar os dados do relatório
+            
+            JRResultSetDataSource relResult = new JRResultSetDataSource(resultSet);//Passa um resultSet para a fonte de dados do relatório
+            JasperPrint jpPrint = JasperFillManager.fillReport("ireport/RelatorioCandidatos.jasper", new HashMap(), relResult);//Prepara o relatório para ser impresso, recebe o gerenciador JASPER
+            JasperViewer jpViewer = new JasperViewer(jpPrint, false); //
+            jpViewer.setVisible(true);//abre o relatório para visualização
+            jpViewer.toFront();//define o form a frente da aplicação
+        
+        }catch(JRException ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
+        }
+        
+    }//GEN-LAST:event_menuRelCandidaturasActionPerformed
+
+    private void menuRelCadPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelCadPessoasActionPerformed
+        // TODO add your handling code here:
+        
+          try{
+            String wSelect = "";
+            wSelect = " SELECT p.id as codigo, p.nome as nome, b.nome as bairro, c.nome as cidade, e.uf as uf, n.escolaridade as escolaridade  ";
+            wSelect += "FROM pessoas p, bairros b, estados e, cidades c, escolaridades n";
+            wSelect += "WHERE p.id_bairro = b.id AND b.id_cidade = c.id AND ";
+            wSelect += "c.uf_estados = e.uf AND p.id_escolaridade = n.id AND p.data_exclusao IS NULL ";
+            wSelect += "ORDER BY p.nome";
+            
+            RelatorioController objRelController = new RelatorioController();
+            ResultSet resultSet = objRelController.buscarRelatorio(wSelect);//Buscar os dados do relatório
+            
+            JRResultSetDataSource relResult = new JRResultSetDataSource(resultSet);//Passa um resultSet para a fonte de dados do relatório
+            JasperPrint jpPrint = JasperFillManager.fillReport("ireport/RelatorioPessoas.jasper", new HashMap(), relResult);//Prepara o relatório para ser impresso, recebe o gerenciador JASPER
+            JasperViewer jpViewer = new JasperViewer(jpPrint, false); //
+            jpViewer.setVisible(true);//abre o relatório para visualização
+            jpViewer.toFront();//define o form a frente da aplicação
+        
+        }catch(JRException ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
+        }
+        
+    }//GEN-LAST:event_menuRelCadPessoasActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -314,6 +400,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBemVindo;
     private javax.swing.JMenu menu;
@@ -325,6 +412,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEscolaridades;
     private javax.swing.JMenuItem menuPessoas;
     private javax.swing.JMenuItem menuPessoasVagas;
+    private javax.swing.JMenuItem menuRelCadPessoas;
+    private javax.swing.JMenuItem menuRelCandidaturas;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 }
