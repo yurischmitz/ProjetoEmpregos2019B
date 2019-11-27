@@ -6,6 +6,7 @@
 package controles;
 
 import banco.Conexao;
+import ferramentas.CaixaDeDialogo;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.*;
@@ -62,7 +63,7 @@ public class PessoaControle {
         }
     }
     
-     public boolean alterar(){
+    public boolean alterar(){
          
         Conexao.abreConexao();
         Connection con = Conexao.obterConexao();
@@ -198,97 +199,6 @@ public class PessoaControle {
         //return (true);
     }
     
-    public void preencherUsuarioLogado(){
-        
-        Conexao.abreConexao();
-        
-        Vector<String> cabecalhos = new Vector<String>();
-        Vector dadosTabela = new Vector(); //receber os dados do banco
-        
-        cabecalhos.add("Código");
-        cabecalhos.add("Nome");
-        cabecalhos.add("CPF");
-        cabecalhos.add("Excluir");
-        
-        ResultSet result = null;
-        
-        try {
-
-            String SQL = "";
-            SQL = " SELECT id, nome, cpf ";
-            SQL += " FROM pessoas ";
-            SQL += " WHERE cpf = '" + objPessoa.getCpf() + "' AND data_exclusao IS NULL ";
-            SQL += " ORDER BY nome ";
-            
-            result = Conexao.stmt.executeQuery(SQL);
-
-            Vector<Object> linha;
-            while(result.next()) {
-                linha = new Vector<Object>();
-                
-                linha.add(result.getInt(1));
-                linha.add(result.getString(2));
-                linha.add(result.getString(3));;
-                linha.add("X");
-                
-                dadosTabela.add(linha);
-            }
-            
-        } catch (Exception e) {
-            System.out.println("problemas para popular tabela...");
-            System.out.println(e);
-        }
-
-        jtbPessoa.setModel(new DefaultTableModel(dadosTabela, cabecalhos) {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-              return false;
-            }
-            // permite seleção de apenas uma linha da tabela
-        });
-
-        // permite seleção de apenas uma linha da tabela
-        jtbPessoa.setSelectionMode(0);
-
-        // redimensiona as colunas de uma tabela
-        TableColumn column = null;
-        for (int i = 0; i <= 2; i++) {
-            column = jtbPessoa.getColumnModel().getColumn(i);
-            switch (i) {
-                case 0:
-                    column.setPreferredWidth(80);
-                    break;
-                case 1:
-                    column.setPreferredWidth(180);
-                    break;
-                case 2:
-                    column.setPreferredWidth(150);
-                    break;
-                case 3:
-                    column.setPreferredWidth(20);
-                    break;
-            }
-        }
-        
-        jtbPessoa.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected,
-                        hasFocus, row, column);
-                if (row % 2 == 0) {
-                    setBackground(Color.LIGHT_GRAY);
-                } else {
-                    setBackground(Color.WHITE);
-                }
-                return this;
-            }
-        });
-        //return (true);
-    }
-    
     public Pessoa buscarCPF(String cpf){
         try {
             Conexao.abreConexao();
@@ -354,6 +264,7 @@ public class PessoaControle {
                 if(rs.next() == true)
                 {
                     if(rs.getInt(1) != objPessoa.getId()){
+                        CaixaDeDialogo.obterinstancia().exibirMensagem("É possível fazer apenas um cadastro!");
                         return true; //Já existe uma pessoa com este CPF
                     }else{
                         return false;

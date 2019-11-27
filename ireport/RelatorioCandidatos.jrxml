@@ -28,71 +28,71 @@ ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="36" splitType="Stretch">
+		<band height="26" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="57" splitType="Stretch">
 			<staticText>
-				<reportElement x="15" y="0" width="100" height="20" uuid="32f1a5a0-11b6-4c4d-a7f5-73bb580d0792"/>
+				<reportElement x="0" y="2" width="100" height="20" uuid="2a567c72-86dd-425f-a798-d4580a5cbe50"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="290" y="0" width="100" height="20" uuid="126b7fe2-b5d7-4102-857d-b2e5468ff143"/>
+				<reportElement x="100" y="0" width="100" height="20" uuid="e9271821-96e7-499d-937f-dd88cc095c6b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Pessoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="0" width="100" height="20" uuid="a559a8c5-f0ab-41a3-9462-fa56b4254da2"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Cargo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="156" y="0" width="100" height="20" uuid="2e687d5d-1dd1-4b22-88d4-33018502539c"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Nome]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="443" y="0" width="100" height="20" uuid="64356f4b-633c-4e20-9365-24a65a096b11"/>
+				<reportElement x="415" y="2" width="100" height="20" uuid="4208901d-ed59-4cd8-afe5-cf996bb38ead"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Empresa]]></text>
 			</staticText>
 		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="15" y="41" width="100" height="20" uuid="35ddb158-6af8-415e-acad-52326e1553f5"/>
+				<reportElement x="0" y="0" width="100" height="20" uuid="0255e924-64de-4b24-a8f2-cd8b24849d63"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="156" y="41" width="100" height="20" uuid="966fd847-8681-4fa7-b6f8-4c45a4dfd19f"/>
+				<reportElement x="100" y="0" width="100" height="20" uuid="bc1551c9-0b1a-4a40-ac32-2a636fa99e24"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pessoa}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="290" y="41" width="100" height="20" uuid="e7136924-b752-4384-80a4-a91d86e3ba21"/>
+				<reportElement x="244" y="0" width="100" height="20" uuid="e549ad77-3990-4b93-8c4e-9a82a3097ef9"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="443" y="41" width="100" height="20" uuid="53409b39-ff67-4711-a1df-1e5da376c69e"/>
+				<reportElement x="415" y="0" width="100" height="20" uuid="a01e5804-cadd-4094-a6a3-11f729f744ae"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnHeader>
-	<detail>
-		<band height="125" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

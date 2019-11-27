@@ -29,6 +29,10 @@ public class UserControle {
     
     public boolean incluir(){
         
+        if(verificaExistenciaLogin() == true){
+            return false;
+        }
+        
         if(verificaExistenciaCPF() == true){
             return false;
         }
@@ -77,6 +81,47 @@ public class UserControle {
                     if(rs.getString(1) != objUsuario.getCpf()){
                         CaixaDeDialogo.obterinstancia().exibirMensagem("Esse CPF já existe");
                         return true; //Já existe uma pessoa com este CPF
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }
+
+            catch (SQLException ex )
+            {
+                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage().toString());
+            return false;
+        }
+    }
+    
+    public Boolean verificaExistenciaLogin(){
+        try {
+            Conexao.abreConexao();
+            ResultSet rs = null;
+
+            String SQL = "";
+            SQL = " SELECT login ";
+            SQL += " FROM usuarios ";
+            SQL += " WHERE login = '" + objUsuario.getLogin()+ "'";
+            //SQL += " AND data_exclusao is null ";
+
+            try{
+                System.out.println("Vai Executar Conexão em buscar");
+                rs = Conexao.stmt.executeQuery(SQL);
+                System.out.println("Executou Conexão em buscar");
+
+                if(rs.next() == true)
+                {
+                    if(rs.getString(1) != objUsuario.getLogin()){
+                        CaixaDeDialogo.obterinstancia().exibirMensagem("Esse Login já existe");
+                        return true; //Já existe uma pessoa com este Login
                     }else{
                         return false;
                     }

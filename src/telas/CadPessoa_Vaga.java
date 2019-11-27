@@ -32,11 +32,23 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     public CadPessoa_Vaga() {
         initComponents();
         
+        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());        
+        String cpf = TelaPrincipal.usuarioLogado.getCpf();
+        
         try{
-            //selecionaItem = false;
             
-            cbComboPessoa = new Combos(jcbPessoa);
-            cbComboPessoa.PreencheCombo(" SELECT id, nome FROM pessoas ORDER BY nome ");
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){ 
+                cbComboPessoa = new Combos(jcbPessoa);
+                cbComboPessoa.PreencheCombo(" SELECT p.id, p.nome FROM pessoas p, usuarios u WHERE u.cpf = p.cpf AND p.cpf = '" + cpf + "' ");
+                jcbPessoa.setSelectedIndex(1);
+                objPessoa_Vaga = new Pessoa_Vaga();
+                objPessoa_Vaga.setId_pessoa(Integer.parseInt(lblId.getText()));
+                jcbPessoa.setEnabled(false);
+                
+            }else{
+                cbComboPessoa = new Combos(jcbPessoa);
+                cbComboPessoa.PreencheCombo(" SELECT id, nome FROM pessoas ORDER BY nome ");
+            }
             
             cbComboEmpresa = new Combos(jcbEmpresa);
             cbComboEmpresa.PreencheCombo(" SELECT e.id, e.nome FROM empresas e, cargo_empresa ce WHERE ce.id_empresa = e.id AND ce.data_exclusao IS NULL GROUP BY e.id, ce.id_empresa ORDER BY nome ");
@@ -51,8 +63,10 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     private void atualizarTabela(){
         try{
             
-           objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
-           objPessoa_VagaControle.preencher();
+            if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
+                objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
+                objPessoa_VagaControle.preencher();
+            }
             
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage());
@@ -61,12 +75,8 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     
     private void limparTela(){
         try{
-            cbComboPessoa.SetaComboBox(String.valueOf(""));
-            
+            //cbComboPessoa.SetaComboBox(String.valueOf(""));
             cbComboEmpresa.SetaComboBox(String.valueOf(""));
-            
-            //cbComboEmpresa = new Combos(jcbEmpresa);
-            //cbComboEmpresa.PreencheCombo(" SELECT id, nome FROM empresas WHERE 1 = 2 ");
             
             cbComboCargo = new Combos(jcbCargo);
             cbComboCargo.PreencheCombo(" SELECT id, nome FROM bairros WHERE 1 = 2 ");
@@ -112,6 +122,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
         lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -139,8 +150,9 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 337, Short.MAX_VALUE)
                 .addComponent(btnLimpar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
@@ -173,7 +185,6 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 260, 610, 110));
 
-        jcbPessoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pessoa" }));
         jcbPessoa.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbPessoaItemStateChanged(evt);

@@ -34,16 +34,15 @@ public class CadPessoa extends javax.swing.JFrame {
         
         lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
          
-        try{
+        txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
+        txtCpf.setText(TelaPrincipal.usuarioLogado.getCpf());
+        
+        try{  
             if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
-                txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
-                txtCpf.setText(TelaPrincipal.usuarioLogado.getCpf());
-                
                 txtNome.setEditable(false);
                 txtCpf.setEditable(false);
                 
             }else{
-                txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
                 txtNome.setEditable(true);
                 txtCpf.setEditable(true);
             }
@@ -77,8 +76,11 @@ public class CadPessoa extends javax.swing.JFrame {
     
     private void limparTela(){
         try{
-            //txtNome.setText("");
-            //txtCpf.setText("");
+            //if(!TelaPrincipal.usuarioLogado.getNivel().equals("N")){
+                //txtNome.setText("");
+                //txtCpf.setText("");
+            //}
+            
             txtData.setText("");
             txtTelefone.setText("");
             
@@ -278,7 +280,7 @@ public class CadPessoa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Título 1", "Título 2", "Título 3"
+
             }
         ));
         jtbPessoas.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -297,7 +297,7 @@ public class CadBairros extends javax.swing.JFrame {
                     String sigla = estado.getCodigo();
 
                     cbComboCidade = new Combos(jcbCidade);
-                    cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' ");
+                    cbComboCidade.PreencheCombo(" SELECT id, nome FROM cidades WHERE uf_estados = '"+ sigla +"' AND data_exclusao IS NULL ");
                     
                 }
             }

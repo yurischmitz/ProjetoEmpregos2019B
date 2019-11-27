@@ -1,6 +1,7 @@
 package telas;
 
 import controle.RelatorioController;
+import controles.PessoaControle;
 import ferramentas.CaixaDeDialogo;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     public static Usuario usuarioLogado;
+    public static PessoaControle pessoaControle;
     
     public TelaPrincipal() {
         initComponents();
@@ -77,8 +79,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblBemVindo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menu = new javax.swing.JMenu();
-        menuBairros = new javax.swing.JMenuItem();
         menuCidade = new javax.swing.JMenuItem();
+        menuBairros = new javax.swing.JMenuItem();
         menuEmpresas = new javax.swing.JMenuItem();
         menuCargos = new javax.swing.JMenuItem();
         menuCargo_Empresa = new javax.swing.JMenuItem();
@@ -108,14 +110,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menu.setText("Cadastros");
 
-        menuBairros.setText("Bairros");
-        menuBairros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuBairrosActionPerformed(evt);
-            }
-        });
-        menu.add(menuBairros);
-
         menuCidade.setText("Cidades");
         menuCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +117,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menu.add(menuCidade);
+
+        menuBairros.setText("Bairros");
+        menuBairros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBairrosActionPerformed(evt);
+            }
+        });
+        menu.add(menuBairros);
 
         menuEmpresas.setText("Empresas");
         menuEmpresas.addActionListener(new java.awt.event.ActionListener() {
@@ -313,9 +315,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             wSelect += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             wSelect += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
             wSelect += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null ";
-            //if(TelaPrincipal.usuarioLogado == null){
-               // SQL += "  ";
-            //}
             wSelect += " ORDER BY e.nome ";
             
             RelatorioController objRelController = new RelatorioController();
@@ -335,14 +334,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuRelCadPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelCadPessoasActionPerformed
         // TODO add your handling code here:
-        
-          try{
+         try{
             String wSelect = "";
-            wSelect = " SELECT p.id as codigo, p.nome as nome, b.nome as bairro, c.nome as cidade, e.uf as uf, n.escolaridade as escolaridade  ";
-            wSelect += "FROM pessoas p, bairros b, estados e, cidades c, escolaridades n";
-            wSelect += "WHERE p.id_bairro = b.id AND b.id_cidade = c.id AND ";
-            wSelect += "c.uf_estados = e.uf AND p.id_escolaridade = n.id AND p.data_exclusao IS NULL ";
-            wSelect += "ORDER BY p.nome";
+            wSelect = " SELECT p.id as id, p.nome as pessoa, b.nome as bairro, c.nome as cidade, e.uf as uf, n.escolaridade as escolaridade ";
+            wSelect += " FROM pessoas p, bairros b, estados e, cidades c, escolaridades n ";
+            wSelect += " WHERE p.id_bairro = b.id AND b.id_cidade = c.id AND ";
+            wSelect += " c.uf_estados = e.uf AND p.id_escolaridade = n.id AND p.data_exclusao IS NULL ";
+            wSelect += " ORDER BY p.nome ";
             
             RelatorioController objRelController = new RelatorioController();
             ResultSet resultSet = objRelController.buscarRelatorio(wSelect);//Buscar os dados do relatório

@@ -6,6 +6,7 @@
 package controles;
 
 import banco.Conexao;
+import ferramentas.CaixaDeDialogo;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import modelos.Cargo_Empresa;
 import modelos.Pessoa_Vaga;
+import telas.CadPessoa_Vaga;
 import telas.TelaPrincipal;
 
 /**
@@ -109,6 +111,99 @@ public class Pessoa_VagaControle {
             //if(TelaPrincipal.usuarioLogado == null){
                // SQL += "  ";
             //}
+            SQL += " ORDER BY e.nome ";
+            
+            result = Conexao.stmt.executeQuery(SQL);
+
+            Vector<Object> linha;
+            while(result.next()) {
+                linha = new Vector<Object>();
+                
+                linha.add(result.getInt(1));
+                linha.add(result.getString(2));
+                linha.add(result.getString(3));
+                linha.add(result.getString(4));
+                linha.add("X");
+                
+                dadosTabela.add(linha);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("problemas para popular tabela...");
+            System.out.println(e);
+        }
+
+        jtbPessoa_Vaga.setModel(new DefaultTableModel(dadosTabela, cabecalhos) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+              return false;
+            }
+            // permite seleção de apenas uma linha da tabela
+        });
+
+        // permite seleção de apenas uma linha da tabela
+        jtbPessoa_Vaga.setSelectionMode(0);
+
+        // redimensiona as colunas de uma tabela
+        TableColumn column = null;
+        for (int i = 0; i <= 2; i++) {
+            column = jtbPessoa_Vaga.getColumnModel().getColumn(i);
+            switch (i) {
+                case 0:
+                    column.setPreferredWidth(10);
+                    break;
+                case 1:
+                    column.setPreferredWidth(100);
+                    break;
+                case 2:
+                    column.setPreferredWidth(10);
+                    break;
+                case 3:
+                    column.setPreferredWidth(10);
+                    break;
+            }
+        }
+        
+        jtbPessoa_Vaga.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected,
+                        hasFocus, row, column);
+                if (row % 2 == 0) {
+                    setBackground(Color.LIGHT_GRAY);
+                } else {
+                    setBackground(Color.WHITE);
+                }
+                return this;
+            }
+        });
+        //return (true);
+    }
+    
+    public void preencherUsuarioLogado(){
+
+        Conexao.abreConexao();
+        
+        Vector<String> cabecalhos = new Vector<String>();
+        Vector dadosTabela = new Vector(); //receber os dados do banco
+        
+        cabecalhos.add("Código");
+        cabecalhos.add("Pessoa");
+        cabecalhos.add("Empresa");
+        cabecalhos.add("Cargo");
+        cabecalhos.add("Excluir");
+        
+        ResultSet result = null;
+        
+        try {
+            String SQL = "";
+            SQL = " SELECT pv.id as codigo, p.nome as pessoa, c.nome as cargo, e.nome as empresa ";
+            SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
+            SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
+            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND p.id = '" + objPessoa_Vaga.getId_pessoa() + "' AND pv.data_exclusao is null ";
             SQL += " ORDER BY e.nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
