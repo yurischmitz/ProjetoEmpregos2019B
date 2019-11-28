@@ -11,12 +11,21 @@ package modelos;
  */
 public class Usuario {
     
+    private int id;
     private String login;
     private String nome;
     private String senha;
     private String nivel;
     private String cpf;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNivel() {
         return nivel;
     }

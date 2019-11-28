@@ -28,7 +28,7 @@ public class UsuarioControle {
         ResultSet rs = null;
 
         StringBuilder comandoSQL = new StringBuilder();
-        comandoSQL.append(" SELECT login, nome, nivel, cpf");
+        comandoSQL.append(" SELECT id, login, nome, nivel, cpf");
         comandoSQL.append(" FROM usuarios");
         comandoSQL.append(" WHERE login = '" + usuario + "'");
         comandoSQL.append(" AND senha = MD5('" + senha + "')");
@@ -41,6 +41,7 @@ public class UsuarioControle {
             
             if (rs.next() == true) {
                 user = new Usuario();
+                user.setId(rs.getInt("id"));
                 user.setLogin(rs.getString("login"));
                 user.setNome(rs.getString("nome"));
                 user.setNivel(rs.getString("nivel"));

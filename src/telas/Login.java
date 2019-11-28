@@ -41,7 +41,8 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
-        lblSemLogin = new javax.swing.JButton();
+        lblCadastro = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -63,22 +64,28 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 33, 139, -1));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuário");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 13, -1, -1));
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Senha");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 66, -1, -1));
         getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 86, 139, -1));
 
-        lblSemLogin.setText("SEM LOGIN");
-        lblSemLogin.addActionListener(new java.awt.event.ActionListener() {
+        lblCadastro.setText("CADASTRAR-SE");
+        lblCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblSemLoginActionPerformed(evt);
+                lblCadastroActionPerformed(evt);
             }
         });
-        getContentPane().add(lblSemLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, -1));
+        getContentPane().add(lblCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, -1));
 
-        setSize(new java.awt.Dimension(215, 232));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 210));
+
+        setSize(new java.awt.Dimension(217, 232));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -108,11 +115,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void lblSemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblSemLoginActionPerformed
+    private void lblCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCadastroActionPerformed
         // TODO add your handling code here:
         CadUsuario tela_usuarios = new CadUsuario();
         tela_usuarios.setVisible(true);
-    }//GEN-LAST:event_lblSemLoginActionPerformed
+    }//GEN-LAST:event_lblCadastroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,7 +167,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JButton lblSemLogin;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton lblCadastro;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

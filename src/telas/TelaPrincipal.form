@@ -67,7 +67,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuPessoasVagas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pessoas Vagas"/>
+                <Property name="text" type="java.lang.String" value="Candidatura"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPessoasVagasActionPerformed"/>

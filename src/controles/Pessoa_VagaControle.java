@@ -29,7 +29,6 @@ public class Pessoa_VagaControle {
         this.jtbPessoa_Vaga = jtbPessoa_Vaga;
     }
     
-    
     public boolean incluir(){
         
         Conexao.abreConexao();
@@ -199,7 +198,7 @@ public class Pessoa_VagaControle {
             SQL = " SELECT pv.id as codigo, p.nome as pessoa, c.nome as cargo, e.nome as empresa ";
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
-            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND p.id = '" + objPessoa_Vaga.getId_mostrarpessoa()+ "'";
+            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND p.id = '" + objPessoa_Vaga.getId_mostrarpessoa() + "'";
             SQL += " AND pv.data_exclusao is null ";
             SQL += " ORDER BY e.nome ";
             

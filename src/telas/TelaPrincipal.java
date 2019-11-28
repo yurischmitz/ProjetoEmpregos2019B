@@ -71,6 +71,47 @@ public class TelaPrincipal extends javax.swing.JFrame {
         return false;
     }
     
+    public Boolean verificaExistenciaUSER(){
+        try {
+            Conexao.abreConexao();
+            ResultSet rs = null;
+
+            String SQL = "";
+            SQL = " SELECT u.id ";
+            SQL += " FROM pessoas p, usuarios u ";
+            SQL += " WHERE u.cpf = p.cpf AND p.cpf = '" + usuarioLogado.getCpf() + "'";
+            SQL += " AND p.data_exclusao is null ";
+
+            try{
+                System.out.println("Vai Executar Conexão em buscar");
+                rs = Conexao.stmt.executeQuery(SQL);
+                System.out.println("Executou Conexão em buscar");
+
+                if(rs.next() == true)
+                {
+                    if(rs.getInt(1) != usuarioLogado.getId()){
+                        CaixaDeDialogo.obterinstancia().exibirMensagem("Você precisa fazer um cadastro!");
+                        return false; //Já existe uma pessoa com este CPF
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
+            }
+
+            catch (SQLException ex )
+            {
+                System.out.println("ERRO de SQL: " + ex.getMessage().toString());
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage().toString());
+            return false;
+        }
+    }
+    
     @SuppressWarnings("unchecked") 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -166,7 +207,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menu.add(menuPessoas);
 
-        menuPessoasVagas.setText("Pessoas Vagas");
+        menuPessoasVagas.setText("Candidatura");
         menuPessoasVagas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuPessoasVagasActionPerformed(evt);
@@ -297,11 +338,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuPessoasVagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPessoasVagasActionPerformed
         // TODO add your handling code here:
-        if(usuarioLogado.getNivel().equals("A") || usuarioLogado.getNivel().equals("N")){
-            CadPessoa_Vaga tela_pessoas = new CadPessoa_Vaga();
-            tela_pessoas.setVisible(true);
+        if(verificaExistenciaUSER()){
+            if(usuarioLogado.getNivel().equals("A") || usuarioLogado.getNivel().equals("N")){
+                CadPessoa_Vaga tela_pessoas = new CadPessoa_Vaga();
+                tela_pessoas.setVisible(true);
+            }else{
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            }
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Faça um cadastro!");
+            //CadPessoa_Vaga tela_pessoas = new CadPessoa_Vaga();
+            //tela_pessoas.setVisible(false);
         }
     }//GEN-LAST:event_menuPessoasVagasActionPerformed
 
@@ -364,9 +411,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuRelCadPessoasActionPerformed
 
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

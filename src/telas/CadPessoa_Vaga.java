@@ -66,6 +66,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
                 objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
                 //objPessoa_VagaControle.preencherUsuarioLogado();
+                //System.out.println(objPessoa_Vaga.getId_mostrarpessoa());
                 objPessoa_VagaControle.preencher();
             }else{
                 objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
