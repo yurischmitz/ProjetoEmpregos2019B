@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,6 +16,15 @@ public class Pessoa_Vaga {
     private int id_cargo_empresa;
     private int id_empresa;
     private int id_cargo;
+    private int id_mostrarpessoa;
+
+    public int getId_mostrarpessoa() {
+        return id_mostrarpessoa;
+    }
+
+    public void setId_mostrarpessoa(int id_mostrarpessoa) {
+        this.id_mostrarpessoa = id_mostrarpessoa;
+    }
 
     public int getId() {
         return id;

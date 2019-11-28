@@ -27,29 +27,29 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     Combos cbComboPessoa;
     Combos cbComboEmpresa;
     Combos cbComboCargo;
+    boolean selecionaItem;
     
     
     public CadPessoa_Vaga() {
         initComponents();
         
-        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());        
+        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());   
         String cpf = TelaPrincipal.usuarioLogado.getCpf();
         
         try{
-            
             if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){ 
                 cbComboPessoa = new Combos(jcbPessoa);
                 cbComboPessoa.PreencheCombo(" SELECT p.id, p.nome FROM pessoas p, usuarios u WHERE u.cpf = p.cpf AND p.cpf = '" + cpf + "' ");
                 jcbPessoa.setSelectedIndex(1);
-                objPessoa_Vaga = new Pessoa_Vaga();
-                objPessoa_Vaga.setId_pessoa(Integer.parseInt(lblId.getText()));
+                Combos c = (Combos) jcbPessoa.getSelectedItem();
+                objPessoa_Vaga.setId_mostrarpessoa(Integer.parseInt(c.getCodigo())); 
                 jcbPessoa.setEnabled(false);
                 
             }else{
                 cbComboPessoa = new Combos(jcbPessoa);
                 cbComboPessoa.PreencheCombo(" SELECT id, nome FROM pessoas ORDER BY nome ");
             }
-            
+            selecionaItem = false;
             cbComboEmpresa = new Combos(jcbEmpresa);
             cbComboEmpresa.PreencheCombo(" SELECT e.id, e.nome FROM empresas e, cargo_empresa ce WHERE ce.id_empresa = e.id AND ce.data_exclusao IS NULL GROUP BY e.id, ce.id_empresa ORDER BY nome ");
             
@@ -65,6 +65,10 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             
             if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
                 objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
+                //objPessoa_VagaControle.preencherUsuarioLogado();
+                objPessoa_VagaControle.preencher();
+            }else{
+                objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
                 objPessoa_VagaControle.preencher();
             }
             
@@ -75,6 +79,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     
     private void limparTela(){
         try{
+            selecionaItem = false;
             //cbComboPessoa.SetaComboBox(String.valueOf(""));
             cbComboEmpresa.SetaComboBox(String.valueOf(""));
             
@@ -89,9 +94,12 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     
     private void preencherCampos(){
         try{
-            //lblId.setText(String.valueOf(objBairro.getId()));
-            
+            cbComboPessoa.SetaComboBox(String.valueOf(objPessoa_Vaga.getId_pessoa()));
             cbComboEmpresa.SetaComboBox(String.valueOf(objPessoa_Vaga.getId_empresa()));
+            
+            int cargo = objPessoa_Vaga.getId_cargo();
+            cbComboCargo = new Combos(jcbCargo);
+            cbComboCargo.PreencheCombo(" SELECT id, nome FROM cargos WHERE id = '"+ cargo +"' ");
             cbComboCargo.SetaComboBox(String.valueOf(objPessoa_Vaga.getId_cargo()));
                        
             //btnSalvar.setEnabled(true);
@@ -181,6 +189,11 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                 "Título 1", "Título 2", "Título 3", "Título 4"
             }
         ));
+        jtbPessoas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtbPessoasMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbPessoas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 260, 610, 110));
@@ -235,7 +248,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             //validar os campos
             
             Combos c = (Combos) jcbPessoa.getSelectedItem();
-            objPessoa_Vaga.setId_pessoa(Integer.parseInt(c.getCodigo())); 
+            objPessoa_Vaga.setId_pessoa(Integer.parseInt(c.getCodigo()));
             
             c = (Combos) jcbCargo.getSelectedItem();
             objPessoa_Vaga.setId_cargo(Integer.parseInt(c.getCodigo()));
@@ -279,7 +292,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     private void jcbEmpresaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbEmpresaItemStateChanged
         // TODO add your handling code here:
         try{
-            //if(selecionaItem == false){
+            if(selecionaItem == false){
                 if(jcbEmpresa.getSelectedIndex() > 0){
 
                     Combos empresa = (Combos) jcbEmpresa.getSelectedItem();
@@ -288,7 +301,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                     cbComboCargo = new Combos(jcbCargo);
                     cbComboCargo.PreencheCombo(" SELECT c.id, c.nome FROM cargos c, empresas e, cargo_empresa ce WHERE ce.id_cargo = c.id AND ce.id_empresa = e.id AND ce.id_empresa = '"+ idempresa +"' ");       
                 }
-            //}
+            }
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
         }
@@ -296,11 +309,13 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
 
     private void jcbPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbPessoaItemStateChanged
         // TODO add your handling code here:
-        objPessoa_Vaga = new Pessoa_Vaga();
-        if(jcbPessoa.getSelectedIndex() > 0){
-        Combos c = (Combos) jcbPessoa.getSelectedItem();
-        objPessoa_Vaga.setId(Integer.parseInt(c.getCodigo()));
-        lblId.setText(String.valueOf(objPessoa_Vaga.getId()));
+        if(selecionaItem == false){
+            objPessoa_Vaga = new Pessoa_Vaga();
+            if(jcbPessoa.getSelectedIndex() > 0){
+                Combos c = (Combos) jcbPessoa.getSelectedItem();
+                objPessoa_Vaga.setId(Integer.parseInt(c.getCodigo()));
+                lblId.setText(String.valueOf(objPessoa_Vaga.getId()));
+            }
         }
     }//GEN-LAST:event_jcbPessoaItemStateChanged
 
@@ -321,6 +336,57 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
         }*/
     }//GEN-LAST:event_jcbCargoItemStateChanged
+
+    private void jtbPessoasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPessoasMousePressed
+        // TODO add your handling code here:
+        try{
+            selecionaItem = true;
+            int linhaSelecionada = jtbPessoas.getSelectedRow();//pega a linha selecionada
+            String codigo = jtbPessoas.getModel().getValueAt(linhaSelecionada, 0).toString(); // Primeira coluna da linha
+
+            //Verifica se clicou na coluna 4 = EXCLUIR
+            if(jtbPessoas.isColumnSelected(4)){
+                try{
+                    boolean wPergunta = CaixaDeDialogo.obterinstancia().pedirConfirmacao("Tem certeza de que deseja excluir?","",'p');
+                    if (wPergunta == true){
+                        objPessoa_Vaga = new Pessoa_Vaga();
+                        objPessoa_Vaga.setId(Integer.parseInt(codigo));
+                        
+                        objPessoa_VagaControle = new Pessoa_VagaControle(objPessoa_Vaga, null);
+                        boolean wControle = objPessoa_VagaControle.excluir();
+                        
+                        if (wControle){
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!");
+                        }else{
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!");
+                        }
+                    }
+                    atualizarTabela();
+
+                }catch(Exception ex){
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+                }
+            }else{
+                if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
+                    objPessoa_VagaControle = new Pessoa_VagaControle(null, null);
+                    objPessoa_Vaga = objPessoa_VagaControle.buscar(codigo);
+                    if (objPessoa_Vaga != null && objPessoa_Vaga.getId() > 0){
+                        preencherCampos();
+                    }else{
+                        CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
+                    }
+                }else{
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Você não pode editar, apenas excluir!");
+                    return;
+                }
+            }
+            selecionaItem = false;
+        
+        }catch(Exception ex){
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
+            selecionaItem = false;
+        }
+    }//GEN-LAST:event_jtbPessoasMousePressed
 
     /**
      * @param args the command line arguments

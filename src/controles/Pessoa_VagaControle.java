@@ -18,15 +18,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import modelos.Cargo_Empresa;
 import modelos.Pessoa_Vaga;
-import telas.CadPessoa_Vaga;
-import telas.TelaPrincipal;
 
-/**
- *
- * @author ruanw
- */
 public class Pessoa_VagaControle {
     Pessoa_Vaga objPessoa_Vaga;
     JTable jtbPessoa_Vaga = null;
@@ -104,7 +97,7 @@ public class Pessoa_VagaControle {
         
         try {
             String SQL = "";
-            SQL = " SELECT pv.id as codigo, p.nome as pessoa, c.nome as cargo, e.nome as empresa ";
+            SQL = " SELECT pv.id as codigo, p.nome as pessoa, e.nome as empresa, c.nome as cargo ";
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
             SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null ";
@@ -147,7 +140,7 @@ public class Pessoa_VagaControle {
 
         // redimensiona as colunas de uma tabela
         TableColumn column = null;
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i <= 4; i++) {
             column = jtbPessoa_Vaga.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
@@ -157,9 +150,12 @@ public class Pessoa_VagaControle {
                     column.setPreferredWidth(100);
                     break;
                 case 2:
-                    column.setPreferredWidth(10);
+                    column.setPreferredWidth(100);
                     break;
                 case 3:
+                    column.setPreferredWidth(100);
+                    break;
+                case 4:
                     column.setPreferredWidth(10);
                     break;
             }
@@ -184,7 +180,7 @@ public class Pessoa_VagaControle {
     }
     
     public void preencherUsuarioLogado(){
-
+        
         Conexao.abreConexao();
         
         Vector<String> cabecalhos = new Vector<String>();
@@ -203,7 +199,8 @@ public class Pessoa_VagaControle {
             SQL = " SELECT pv.id as codigo, p.nome as pessoa, c.nome as cargo, e.nome as empresa ";
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
-            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND p.id = '" + objPessoa_Vaga.getId_pessoa() + "' AND pv.data_exclusao is null ";
+            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND p.id = '" + objPessoa_Vaga.getId_mostrarpessoa()+ "'";
+            SQL += " AND pv.data_exclusao is null ";
             SQL += " ORDER BY e.nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
@@ -250,9 +247,12 @@ public class Pessoa_VagaControle {
                     column.setPreferredWidth(100);
                     break;
                 case 2:
-                    column.setPreferredWidth(10);
+                    column.setPreferredWidth(100);
                     break;
                 case 3:
+                    column.setPreferredWidth(100);
+                    break;
+                case 4:
                     column.setPreferredWidth(10);
                     break;
             }
@@ -282,10 +282,10 @@ public class Pessoa_VagaControle {
             ResultSet rs = null;
 
             String SQL = "";
-            SQL = " SELECT id, id_pessoa, id_cargo_empresa ";
-            SQL += " FROM pessoas_vagas ";
-            SQL += " WHERE id = '" + id + "'";
-            SQL += " AND data_exclusao is null ";
+            SQL = " SELECT pv.id, p.id, c.id, e.id ";
+            SQL += " FROM pessoas p, cargos c, empresas e, cargo_empresa ce, pessoas_vagas pv ";
+            SQL += " WHERE pv.id_pessoa = p.id AND pv.id_cargo_empresa = ce.id AND ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.id = '" + id + "'";
+            SQL += " AND pv.data_exclusao is null ";
 
             try{
                 System.out.println("Vai Executar Conexão em buscar");
@@ -297,7 +297,8 @@ public class Pessoa_VagaControle {
                 {
                     objPessoa_Vaga.setId(rs.getInt(1));
                     objPessoa_Vaga.setId_pessoa(rs.getInt(2));
-                    objPessoa_Vaga.setId_cargo_empresa(rs.getInt(3));
+                    objPessoa_Vaga.setId_cargo(rs.getInt(3));
+                    objPessoa_Vaga.setId_empresa(rs.getInt(4));
                 }
             }
 

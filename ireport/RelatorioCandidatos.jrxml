@@ -34,29 +34,29 @@ ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null]]>
 		<band height="57" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="2" width="100" height="20" uuid="2a567c72-86dd-425f-a798-d4580a5cbe50"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="100" y="0" width="100" height="20" uuid="e9271821-96e7-499d-937f-dd88cc095c6b"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pessoa]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="244" y="0" width="100" height="20" uuid="a559a8c5-f0ab-41a3-9462-fa56b4254da2"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cargo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="415" y="2" width="100" height="20" uuid="4208901d-ed59-4cd8-afe5-cf996bb38ead"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Empresa]]></text>
 			</staticText>
@@ -66,28 +66,28 @@ ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null]]>
 		<band height="27" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="100" height="20" uuid="0255e924-64de-4b24-a8f2-cd8b24849d63"/>
-				<textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="100" height="20" uuid="bc1551c9-0b1a-4a40-ac32-2a636fa99e24"/>
-				<textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pessoa}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="244" y="0" width="100" height="20" uuid="e549ad77-3990-4b93-8c4e-9a82a3097ef9"/>
-				<textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="0" width="100" height="20" uuid="a01e5804-cadd-4094-a6a3-11f729f744ae"/>
-				<textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>

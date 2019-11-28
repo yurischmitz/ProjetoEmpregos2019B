@@ -224,7 +224,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuBairrosActionPerformed
 
-
     private void menuCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCidadeActionPerformed
         if(usuarioLogado.getNivel().equals("A")){
             CadCidades tela_cidades = new CadCidades();

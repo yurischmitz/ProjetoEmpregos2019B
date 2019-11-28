@@ -32,8 +32,7 @@ public class CadPessoa extends javax.swing.JFrame {
     public CadPessoa() {
         initComponents();
         
-        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome());
-         
+        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome()); 
         txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
         txtCpf.setText(TelaPrincipal.usuarioLogado.getCpf());
         

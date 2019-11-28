@@ -22,8 +22,8 @@ ORDER BY p.nome]]>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="224" y="21" width="317" height="35" uuid="f969b68c-616e-4079-b661-7cb5bf14a73f"/>
-				<textElement>
+				<reportElement mode="Transparent" x="224" y="21" width="317" height="35" uuid="f969b68c-616e-4079-b661-7cb5bf14a73f"/>
+				<textElement textAlignment="Justified">
 					<font size="24"/>
 				</textElement>
 				<text><![CDATA[RELATÓRIO DE PESSOAS]]></text>
@@ -34,46 +34,46 @@ ORDER BY p.nome]]>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="45" splitType="Stretch">
+		<band height="57" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="46" height="20" uuid="7bb6d779-f972-4320-b0cd-c8c7e8cc90bc"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="82" y="0" width="100" height="20" uuid="f0e8ad58-f9d3-4a39-b9b5-df4cdd979f52"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="385" y="0" width="100" height="20" uuid="9bd45963-6e28-4d93-a535-38f9b5ef67e0"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Bairro]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="541" y="0" width="100" height="20" uuid="4581e341-cf9e-49a4-9880-30069829accd"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Cidade]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="695" y="0" width="50" height="20" uuid="2cbcb62e-039f-455a-b7de-e8318a27fd2e"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="219" y="0" width="100" height="20" uuid="aa58bee4-03e3-4d0f-8888-bb19925e2e9c"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Escolaridade]]></text>
 			</staticText>
@@ -83,43 +83,91 @@ ORDER BY p.nome]]>
 		<band height="28" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="46" height="20" uuid="996d665e-13b0-4f42-a6aa-2d080c8763ab"/>
-				<textElement>
-					<font size="14"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="82" y="0" width="100" height="20" uuid="d3e7dc4c-700b-4483-9051-231ed0fa720c"/>
-				<textElement>
-					<font size="14"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pessoa}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="385" y="0" width="100" height="20" uuid="50f83613-117c-498a-b3b9-6019450839be"/>
-				<textElement>
-					<font size="14"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bairro}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="541" y="0" width="100" height="20" uuid="75b0ab3e-1e02-49e4-951a-bcd178da1d68"/>
-				<textElement>
-					<font size="14"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="695" y="0" width="50" height="20" uuid="7e755543-118a-42b6-951c-d97ffe860481"/>
-				<textElement>
-					<font size="14"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{uf}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="219" y="0" width="117" height="20" uuid="647258ce-b606-41a7-89b6-f9c064071524"/>
-				<textElement>
-					<font size="14"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{escolaridade}]]></textFieldExpression>
 			</textField>
