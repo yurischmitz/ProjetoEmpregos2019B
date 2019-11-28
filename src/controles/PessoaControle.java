@@ -205,7 +205,7 @@ public class PessoaControle {
             ResultSet rs = null;
 
             String SQL = "";
-            SQL = " SELECT id, nome, cpf, data_nascimento, senha, telefone, id_bairro, id_escolaridade  ";
+            SQL = " SELECT id, nome, cpf, data_nascimento, telefone, id_bairro, id_escolaridade  ";
             SQL += " FROM pessoas ";
             SQL += " WHERE cpf = '" + cpf + "'";
             SQL += " AND data_exclusao is null";
@@ -222,7 +222,6 @@ public class PessoaControle {
                     objPessoa.setNome(rs.getString(2));
                     objPessoa.setCpf(rs.getString(3));
                     objPessoa.setData_nascimento(rs.getString(4));
-                    //objPessoa.setSenha(rs.getString(5));
                     objPessoa.setTelefone(rs.getString(5));
                     objPessoa.setId_bairro(rs.getInt(6));
                     objPessoa.setId_escolaridade(rs.getInt(7));

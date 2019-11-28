@@ -32,11 +32,11 @@ public class CadPessoa extends javax.swing.JFrame {
     public CadPessoa() {
         initComponents();
         
-        lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome()); 
-        txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
-        txtCpf.setText(TelaPrincipal.usuarioLogado.getCpf());
-        
-        try{  
+        try{
+            lblNomeUsuario.setText(TelaPrincipal.usuarioLogado.getNome()); 
+            txtNome.setText(TelaPrincipal.usuarioLogado.getNome());
+            txtCpf.setText(TelaPrincipal.usuarioLogado.getCpf());
+            
             if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
                 txtNome.setEditable(false);
                 txtCpf.setEditable(false);
@@ -135,7 +135,7 @@ public class CadPessoa extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnCandidatar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         lblNomeUsuario = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -168,13 +168,13 @@ public class CadPessoa extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCandidatar.setText("Salvar");
-        btnCandidatar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCandidatarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCandidatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, 31));
+        jPanel1.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, 31));
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -341,7 +341,7 @@ public class CadPessoa extends javax.swing.JFrame {
         limparTela();
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void btnCandidatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCandidatarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         try{
             boolean retorno;
@@ -425,7 +425,7 @@ public class CadPessoa extends javax.swing.JFrame {
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
         atualizarTabela();
-    }//GEN-LAST:event_btnCandidatarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jtbPessoasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPessoasMousePressed
         // TODO add your handling code here:
@@ -512,9 +512,9 @@ public class CadPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCandidatar;
     private javax.swing.JButton btnCandidatar1;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
