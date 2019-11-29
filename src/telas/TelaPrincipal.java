@@ -41,7 +41,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             menuCargos.setVisible(verificaPermissao("M"));
             menuCargo_Empresa.setVisible(verificaPermissao("M"));
             menuEscolaridades.setVisible(verificaPermissao("M"));
-            menuPessoas.setVisible(verificaPermissao("V"));
+            menuRelCadPessoas.setVisible(verificaPermissao("M"));
+            menuRelCandidaturas.setVisible(verificaPermissao("M"));
+            
+            
             
         }catch(Exception e){
                System.out.println(e);
@@ -347,8 +350,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         }else{
             CaixaDeDialogo.obterinstancia().exibirMensagem("Faça um cadastro!");
-            //CadPessoa_Vaga tela_pessoas = new CadPessoa_Vaga();
-            //tela_pessoas.setVisible(false);
         }
     }//GEN-LAST:event_menuPessoasVagasActionPerformed
 
@@ -405,7 +406,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
            }
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            
         }
         
     }//GEN-LAST:event_menuRelCadPessoasActionPerformed

@@ -20,7 +20,6 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
     /**
      * Creates new form CadPessoa_Vaga
      */
-    public int id_pessoa;
     
     Pessoa_Vaga objPessoa_Vaga;
     Pessoa_VagaControle objPessoa_VagaControle;
@@ -41,8 +40,10 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                 cbComboPessoa = new Combos(jcbPessoa);
                 cbComboPessoa.PreencheCombo(" SELECT p.id, p.nome FROM pessoas p, usuarios u WHERE u.cpf = p.cpf AND p.cpf = '" + cpf + "' ");
                 jcbPessoa.setSelectedIndex(1);
+                
                 Combos c = (Combos) jcbPessoa.getSelectedItem();
-                objPessoa_Vaga.setId_mostrarpessoa(Integer.parseInt(c.getCodigo())); 
+                objPessoa_Vaga.setId_mostrarpessoa(Integer.parseInt(c.getCodigo()));
+                
                 jcbPessoa.setEnabled(false);
                 
             }else{
@@ -65,9 +66,9 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             
             if(TelaPrincipal.usuarioLogado.getNivel().equals("N")){
                 objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
-                //objPessoa_VagaControle.preencherUsuarioLogado();
-                //System.out.println(objPessoa_Vaga.getId_mostrarpessoa());
-                objPessoa_VagaControle.preencher();
+                
+                objPessoa_VagaControle.preencherUsuarioLogado(objPessoa_Vaga.getId_mostrarpessoa());
+                
             }else{
                 objPessoa_VagaControle = new Pessoa_VagaControle(null, jtbPessoas);
                 objPessoa_VagaControle.preencher();
