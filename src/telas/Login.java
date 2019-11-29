@@ -119,6 +119,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         CadUsuario tela_usuarios = new CadUsuario();
         tela_usuarios.setVisible(true);
+        dispose();
     }//GEN-LAST:event_lblCadastroActionPerformed
 
     /**

@@ -40,7 +40,7 @@ public class CadUsuario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblNomeUsuario = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
-        btnLimpar1 = new javax.swing.JButton();
+        btnTelaLogin = new javax.swing.JButton();
         txtLogin = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         lblLogin = new javax.swing.JLabel();
@@ -67,10 +67,10 @@ public class CadUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnLimpar1.setText("Tela de Login");
-        btnLimpar1.addActionListener(new java.awt.event.ActionListener() {
+        btnTelaLogin.setText("Tela de Login");
+        btnTelaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpar1ActionPerformed(evt);
+                btnTelaLoginActionPerformed(evt);
             }
         });
 
@@ -82,7 +82,7 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblNomeUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btnLimpar1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTelaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalvar)
                 .addContainerGap())
@@ -93,7 +93,7 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpar1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTelaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,12 +181,12 @@ public class CadUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpar1ActionPerformed
+    private void btnTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaLoginActionPerformed
         // TODO add your handling code here:
         Login tela_login = new Login();
         tela_login.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnLimpar1ActionPerformed
+    }//GEN-LAST:event_btnTelaLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,8 +224,8 @@ public class CadUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLimpar1;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnTelaLogin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblLogin;
