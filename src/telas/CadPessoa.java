@@ -69,17 +69,12 @@ public class CadPessoa extends javax.swing.JFrame {
             }
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage(), 'e');
         }
     }
     
     private void limparTela(){
         try{
-            //if(!TelaPrincipal.usuarioLogado.getNivel().equals("N")){
-                //txtNome.setText("");
-                //txtCpf.setText("");
-            //}
-            
             txtData.setText("");
             txtTelefone.setText("");
             
@@ -94,7 +89,7 @@ public class CadPessoa extends javax.swing.JFrame {
             cbComboEscolaridade.SetaComboBox(String.valueOf(""));
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
         }
         atualizarTabela();
     } 
@@ -126,7 +121,7 @@ public class CadPessoa extends javax.swing.JFrame {
             atualizarTabela();
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
         }
     }
     
@@ -313,7 +308,7 @@ public class CadPessoa extends javax.swing.JFrame {
                 }
             }
         }catch(SQLException ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
         }
     }//GEN-LAST:event_jcbEstadoItemStateChanged
 
@@ -332,7 +327,7 @@ public class CadPessoa extends javax.swing.JFrame {
             }
         
         }catch(SQLException ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
         }
     }//GEN-LAST:event_jcbCidadeItemStateChanged
 
@@ -354,12 +349,12 @@ public class CadPessoa extends javax.swing.JFrame {
             
             String cpf = Formatacao.removerFormatacao(txtCpf.getText());        
             if(!Validacao.validarCPF(cpf)){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um CPF corretemente");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um CPF corretemente", 'a');
                 return;
             }
             
             if(!Validacao.validarData(txtData.getText())){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe uma data corretamente!");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe uma data corretamente!", 'a');
                 return;
             }
             
@@ -410,18 +405,13 @@ public class CadPessoa extends javax.swing.JFrame {
             }
             
             if(retorno == true){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo", 'i');
             }else{
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar", 'e');
             }
-            
-            
-            //CadPessoa_Vaga tela_cad_pessoa_vaga = new CadPessoa_Vaga();
-            //tela_cad_pessoa_vaga.id_pessoa = 1;
-            //tela_cad_pessoa_vaga.setVisible(true);
 
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir", 'e');
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
         atualizarTabela();
@@ -446,15 +436,15 @@ public class CadPessoa extends javax.swing.JFrame {
                         boolean wControle = objPessoaControle.excluir();
                         
                         if (wControle){
-                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!");
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!", 'i');
                         }else{
-                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!");
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!", 'e');
                         }
                     }
                     atualizarTabela();
 
                 }catch(Exception ex){
-                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
                 }
             }else{
             
@@ -465,7 +455,7 @@ public class CadPessoa extends javax.swing.JFrame {
                     txtData.setEditable(false);
                     preencherCampos();
                 }else{
-                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!", 'e');
                 }
             }
             selecionaItem = false;

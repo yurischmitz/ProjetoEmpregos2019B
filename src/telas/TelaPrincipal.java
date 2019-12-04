@@ -93,7 +93,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 if(rs.next() == true)
                 {
                     if(rs.getInt(1) != usuarioLogado.getId()){
-                        CaixaDeDialogo.obterinstancia().exibirMensagem("Você precisa fazer um cadastro!");
+                        CaixaDeDialogo.obterinstancia().exibirMensagem("Você precisa fazer um cadastro!", 'a');
                         return false; //Já existe uma pessoa com este CPF
                     }else{
                         return true;
@@ -134,6 +134,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menuRelCadPessoas = new javax.swing.JMenuItem();
         menuRelCandidaturas = new javax.swing.JMenuItem();
+        menuRelPessoasParametro = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -146,11 +147,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         lblBemVindo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblBemVindo.setForeground(new java.awt.Color(0, 204, 51));
+        lblBemVindo.setForeground(new java.awt.Color(255, 255, 255));
         lblBemVindo.setText("LABEL DE BOAS VINDAS");
         jPanel1.add(lblBemVindo);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 90));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 1440, 90));
 
         menu.setText("Cadastros");
 
@@ -222,7 +223,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Relatórios");
 
-        menuRelCadPessoas.setText("Cadastro de pessoas");
+        menuRelCadPessoas.setText("Cadastro de Pessoas");
         menuRelCadPessoas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuRelCadPessoasActionPerformed(evt);
@@ -237,6 +238,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuRelCandidaturas);
+
+        menuRelPessoasParametro.setText("Cadastro de Pessoas com Parâmetros");
+        menuRelPessoasParametro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelPessoasParametroActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuRelPessoasParametro);
 
         barraMenu.add(jMenu1);
 
@@ -255,7 +264,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setJMenuBar(barraMenu);
 
-        setSize(new java.awt.Dimension(817, 568));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -264,7 +273,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadBairros tela_bairros = new CadBairros();
             tela_bairros.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuBairrosActionPerformed
 
@@ -273,7 +282,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadCidades tela_cidades = new CadCidades();
             tela_cidades.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuCidadeActionPerformed
 
@@ -283,7 +292,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadEmpresas tela_empresas = new CadEmpresas();
             tela_empresas.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuEmpresasActionPerformed
 
@@ -292,7 +301,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadCargos tela_cargos = new CadCargos();
             tela_cargos.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuCargosActionPerformed
 
@@ -302,7 +311,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadCargos_Empresas tela_cargos_empresas = new CadCargos_Empresas();
             tela_cargos_empresas.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuCargo_EmpresaActionPerformed
 
@@ -312,7 +321,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadEscolaridades tela_escolaridades = new CadEscolaridades();
             tela_escolaridades.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuEscolaridadesActionPerformed
 
@@ -335,7 +344,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadPessoa tela_pessoas = new CadPessoa();
             tela_pessoas.setVisible(true);
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
     }//GEN-LAST:event_menuPessoasActionPerformed
 
@@ -346,10 +355,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 CadPessoa_Vaga tela_pessoas = new CadPessoa_Vaga();
                 tela_pessoas.setVisible(true);
             }else{
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
             }
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Faça um cadastro!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Faça um cadastro!", 'i');
         }
     }//GEN-LAST:event_menuPessoasVagasActionPerformed
 
@@ -377,7 +386,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
             }
         }else{
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
         
     }//GEN-LAST:event_menuRelCandidaturasActionPerformed
@@ -406,10 +415,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
            }
         }else{
-            
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
         }
         
     }//GEN-LAST:event_menuRelCadPessoasActionPerformed
+
+    private void menuRelPessoasParametroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelPessoasParametroActionPerformed
+        // TODO add your handling code here:
+        if(usuarioLogado.getNivel().equals("A")){
+            RelPessoas tela_rel = new RelPessoas();
+            tela_rel.setVisible(true);
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Sem permissão!!!", 'a');
+        }
+    }//GEN-LAST:event_menuRelPessoasParametroActionPerformed
 
 
     public static void main(String args[]) {
@@ -463,6 +482,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuPessoasVagas;
     private javax.swing.JMenuItem menuRelCadPessoas;
     private javax.swing.JMenuItem menuRelCandidaturas;
+    private javax.swing.JMenuItem menuRelPessoasParametro;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 }
