@@ -21,8 +21,7 @@ import java.util.Vector;
  */
 public class RelatorioController {
         
-    public ResultSet buscarRelatorio(String wSelect)
-    {
+    public ResultSet buscarRelatorio(String wSelect){
         ResultSet rs = null;
         try {
             Conexao.abreConexao();
