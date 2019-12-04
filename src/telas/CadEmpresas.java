@@ -86,7 +86,6 @@ public class CadEmpresas extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
-        txtCnpj = new javax.swing.JTextField();
         lblCnpj = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -95,6 +94,7 @@ public class CadEmpresas extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        txtCnpj = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Empresas");
@@ -107,7 +107,6 @@ public class CadEmpresas extends javax.swing.JFrame {
         lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblId.setText("ID");
         getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
-        getContentPane().add(txtCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 350, -1));
 
         lblCnpj.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCnpj.setText("Cnpj *");
@@ -155,11 +154,18 @@ public class CadEmpresas extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cadastro de Empresas");
         jPanel1.add(jLabel7);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 40));
+
+        try {
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtCnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 350, -1));
 
         setSize(new java.awt.Dimension(496, 439));
         setLocationRelativeTo(null);
@@ -170,20 +176,21 @@ public class CadEmpresas extends javax.swing.JFrame {
             boolean retorno;
             //validar os campos
             if(txtNome.getText().trim().length() == 0){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe uma cidade corretamente", 'a');
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe uma empresa correta", 'a');
                 return;
             }
             
-            if(!Validacao.validarCNPJ(txtCnpj.getText())){
-                System.out.println(txtCnpj.getText());
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Cnpj errado!");
+            String cnpj = Formatacao.removerFormatacao(txtCnpj.getText());  
+            if(!Validacao.validarCNPJ(cnpj)){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Cnpj errado!", 'a');
                 return;
             }
             
 
             objEmpresa = new Empresa();
             objEmpresa.setNome(txtNome.getText().trim());
-            objEmpresa.setCnpj(txtCnpj.getText().trim());
+            objEmpresa.setCnpj(cnpj.trim());
+            
 
             if(!lblId.getText().equals("ID")){
                 objEmpresa.setId(Integer.parseInt(lblId.getText()));
@@ -195,15 +202,15 @@ public class CadEmpresas extends javax.swing.JFrame {
             }
 
             if(retorno = true){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo", 'i');
             }else{
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar", 'e');
             }
 
             atualizarTabela();
 
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir", 'e');
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -300,7 +307,7 @@ public class CadEmpresas extends javax.swing.JFrame {
     private javax.swing.JTable jtbEmpresas;
     private javax.swing.JLabel lblCnpj;
     private javax.swing.JLabel lblId;
-    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

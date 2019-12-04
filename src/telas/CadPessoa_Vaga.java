@@ -56,7 +56,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             
             
         }catch(SQLException ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
         }
         limparTela();
     }
@@ -76,21 +76,20 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             }
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("ERRO:" + ex.getMessage(), 'e');
         }
     }
     
     private void limparTela(){
         try{
             selecionaItem = false;
-            //cbComboPessoa.SetaComboBox(String.valueOf(""));
             cbComboEmpresa.SetaComboBox(String.valueOf(""));
             
             cbComboCargo = new Combos(jcbCargo);
             cbComboCargo.PreencheCombo(" SELECT id, nome FROM bairros WHERE 1 = 2 ");
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
         }
         atualizarTabela();
     } 
@@ -110,7 +109,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             atualizarTabela();
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
         }
     }
     
@@ -213,11 +212,6 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
         getContentPane().add(jcbEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 170, -1));
 
         jcbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cargo" }));
-        jcbCargo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcbCargoItemStateChanged(evt);
-            }
-        });
         getContentPane().add(jcbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 170, -1));
 
         lblEmpresa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -262,23 +256,20 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                 
             if(!lblId.getText().equals("ID")){
                 objPessoa_Vaga.setId(Integer.parseInt(lblId.getText()));
-                //objPessoa_VagaControle = new Pessoa_VagaControle(objPessoa_Vaga, null); 
-                //retorno = objPessoa_VagaControle.alterar();
-            //}else{
                 objPessoa_VagaControle = new Pessoa_VagaControle(objPessoa_Vaga, null);
                 retorno = objPessoa_VagaControle.incluir();
             }
             
             if(retorno = true){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo", 'i');
             }else{
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar", 'e');
             }
             
             atualizarTabela();
 
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir", 'e');
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -302,7 +293,7 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                 }
             }
         }catch(SQLException ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage(), 'e');
         }
     }//GEN-LAST:event_jcbEmpresaItemStateChanged
 
@@ -317,24 +308,6 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jcbPessoaItemStateChanged
-
-    private void jcbCargoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCargoItemStateChanged
-        // TODO add your handling code here:
-        /*try{
-            //if(selecionaItem == false){
-                if(jcbCargo.getSelectedIndex() > 0){
-
-                    Combos cargo = (Combos) jcbCargo.getSelectedItem();
-                    String idcargo = cargo.getCodigo();
-
-                    cbComboEmpresa = new Combos(jcbEmpresa);
-                    cbComboEmpresa.PreencheCombo(" SELECT e.id, e.nome FROM empresas e, cargos c, cargo_empresa ce WHERE ce.id_empresa = e.id AND ce.id_cargo = c.id AND ce.id_cargo = '"+ idcargo +"' ");       
-                }
-            //}
-        }catch(SQLException ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
-        }*/
-    }//GEN-LAST:event_jcbCargoItemStateChanged
 
     private void jtbPessoasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPessoasMousePressed
         // TODO add your handling code here:
@@ -355,15 +328,15 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                         boolean wControle = objPessoa_VagaControle.excluir();
                         
                         if (wControle){
-                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!");
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!", 'i');
                         }else{
-                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!");
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!", 'e');
                         }
                     }
                     atualizarTabela();
 
                 }catch(Exception ex){
-                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
                 }
             }else{
                 if(TelaPrincipal.usuarioLogado.getNivel().equals("A")){
@@ -372,10 +345,10 @@ public class CadPessoa_Vaga extends javax.swing.JFrame {
                     if (objPessoa_Vaga != null && objPessoa_Vaga.getId() > 0){
                         preencherCampos();
                     }else{
-                        CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
+                        CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!", 'e');
                     }
                 }else{
-                    CaixaDeDialogo.obterinstancia().exibirMensagem("Você não pode editar, apenas excluir!");
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Você não pode editar, apenas excluir!", 'i');
                     return;
                 }
             }

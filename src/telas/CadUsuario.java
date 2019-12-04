@@ -142,7 +142,7 @@ public class CadUsuario extends javax.swing.JFrame {
             
             String cpf = Formatacao.removerFormatacao(txtCpf.getText());        
             if(!Validacao.validarCPF(cpf)){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um CPF corretemente");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Informe um CPF corretemente", 'a');
                 return;
             }
             
@@ -155,28 +155,17 @@ public class CadUsuario extends javax.swing.JFrame {
             objUsuario.setNivel("N");
             objUsuario.setCpf(cpf.trim());
             
-            System.out.println(objUsuario.getSenha());
-            
-            
-            /*if(!lblLogin.getText().equals("ID")){
-                objUsuario.setId(Integer.parseInt(lblLogin.getText()));
-                objUsuarioConrole = new UsuarioControle(objUsuario, null);
-                retorno = objUsuarioConrole.alterar();
-            }else{*/
-                objUserControle = new UserControle(objUsuario, null);
-                retorno = objUserControle.incluir();
-            //}
+            objUserControle = new UserControle(objUsuario, null);
+            retorno = objUserControle.incluir();
 
             if(retorno == true){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo", 'i');
             }else{
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar", 'e');
             }
 
-            //atualizarTabela();
-
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir", 'e');
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

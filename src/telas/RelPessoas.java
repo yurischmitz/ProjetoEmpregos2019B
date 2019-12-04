@@ -24,12 +24,12 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author jdhein
  */
-public class RelCandidatosView extends javax.swing.JFrame {
+public class RelPessoas extends javax.swing.JFrame {
     
     Combos cbComboEstado;
 
     /** Creates new form RelAlunosView */
-    public RelCandidatosView() {
+    public RelPessoas() {
         initComponents();
         
         try{
@@ -61,14 +61,15 @@ public class RelCandidatosView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnPesquisar1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatório de Cadastros");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Data de Nascimento");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
 
         txtDataInicio.setText("01/01/2018");
-        getContentPane().add(txtDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 96, -1));
+        getContentPane().add(txtDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 96, -1));
 
         btnPesquisar.setText("PESQUISAR");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,9 +91,9 @@ public class RelCandidatosView extends javax.swing.JFrame {
                 btnPesquisar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 90, -1));
+        getContentPane().add(btnPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 90, -1));
 
-        setSize(new java.awt.Dimension(272, 200));
+        setSize(new java.awt.Dimension(331, 200));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -104,7 +105,7 @@ public class RelCandidatosView extends javax.swing.JFrame {
             Formatacao.colocaMascara(txtDataInicio, "##/##/####");
             
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage());
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
         }
     }  
     
@@ -167,21 +168,23 @@ public class RelCandidatosView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelCandidatosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelCandidatosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelCandidatosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelCandidatosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelPessoas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RelCandidatosView().setVisible(true);
+                new RelPessoas().setVisible(true);
             }
         });
     }

@@ -42,7 +42,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         lblCadastro = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -65,11 +64,9 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 33, 139, -1));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuário");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 13, -1, -1));
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Senha");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 66, -1, -1));
         getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 86, 139, -1));
@@ -81,9 +78,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, -1));
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 210));
 
         setSize(new java.awt.Dimension(217, 232));
         setLocationRelativeTo(null);
@@ -101,7 +95,7 @@ public class Login extends javax.swing.JFrame {
         
         if(user == null){ //verifica se a funcao conseguiu retornar um objeto de usuário válido
             System.out.println("Usuário não existe");
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Dados incorretos!", 'e');
             
         }else{ //caso o usuario de retorno seja válido, a tela principal abre
             TelaPrincipal.usuarioLogado = user;
@@ -168,7 +162,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton lblCadastro;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;

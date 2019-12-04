@@ -7,7 +7,6 @@ package telas;
 
 import controles.CargoControle;
 import ferramentas.CaixaDeDialogo;
-import ferramentas.Validacao;
 import modelos.Cargo;
 
 /**
@@ -141,7 +140,7 @@ public class CadCargos extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cadastro de Cargos");
         jPanel1.add(jLabel7);
 
@@ -173,15 +172,15 @@ public class CadCargos extends javax.swing.JFrame {
             }
 
             if(retorno = true){
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Registro salvo", 'i');
             }else{
-                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar");
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar salvar", 'e');
             }
 
             atualizarTabela();
 
         }catch(Exception ex){
-            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir");
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao tentar incluir", 'e');
             System.out.println("ERRO: " + ex.getMessage().toString());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -203,9 +202,9 @@ public class CadCargos extends javax.swing.JFrame {
                         objCargoControle = new CargoControle(objCargo, null);
                         boolean wControle = objCargoControle.excluir();
                         if (wControle){
-                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!");
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Excluído com Sucesso!", 'i');
                         }else{
-                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!");
+                            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao excluir!", 'e');
                         }
                     }
                     atualizarTabela();
@@ -220,7 +219,7 @@ public class CadCargos extends javax.swing.JFrame {
                 if (objCargo != null && objCargo.getId() > 0){
                     preencherCampos();
                 }else{
-                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!");
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao buscar no BD!", 'e');
                 }
             }
 
