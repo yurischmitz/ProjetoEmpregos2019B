@@ -91,7 +91,7 @@ public class RelPessoas extends javax.swing.JFrame {
                 btnPesquisar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 90, -1));
+        getContentPane().add(btnPesquisar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 90, -1));
 
         setSize(new java.awt.Dimension(331, 200));
         setLocationRelativeTo(null);
