@@ -209,7 +209,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menu.add(menuEscolaridades);
 
-        menuPessoas.setText("Pessoas");
+        menuPessoas.setText("Cadastro");
         menuPessoas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuPessoasActionPerformed(evt);
