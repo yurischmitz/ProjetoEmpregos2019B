@@ -37,8 +37,7 @@ public class RelPessoas extends javax.swing.JFrame {
             cbComboEstado = new Combos(jcbEstado);
             cbComboEstado.PreencheCombo(" SELECT uf, uf FROM estados ");
         
-            txtDataInicio.setValue("");
-            Formatacao.colocaMascara(txtDataInicio, "##/##/####");
+            //txtDataInicio.setValue("");
             
         }catch(SQLException ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem(ex.getMessage());
@@ -68,7 +67,11 @@ public class RelPessoas extends javax.swing.JFrame {
         jLabel1.setText("Data de Nascimento");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
 
-        txtDataInicio.setText("01/01/2018");
+        try {
+            txtDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         getContentPane().add(txtDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 96, -1));
 
         btnPesquisar.setText("PESQUISAR");
@@ -102,7 +105,6 @@ public class RelPessoas extends javax.swing.JFrame {
             cbComboEstado.SetaComboBox(String.valueOf(""));
             
             txtDataInicio.setValue("");
-            Formatacao.colocaMascara(txtDataInicio, "##/##/####");
             
         }catch(Exception ex){
             CaixaDeDialogo.obterinstancia().exibirMensagem("Erro: " + ex.getMessage(), 'e');
@@ -123,6 +125,7 @@ public class RelPessoas extends javax.swing.JFrame {
             RelatorioController objController = new RelatorioController();
             String wSQL =  "SELECT p.id, p.nome, p.cpf, " +
                             " to_char(data_nascimento, 'dd/MM/yyyy') as data_nascimento, " +
+                            " extract (year from age(p.data_nascimento)) as idade, " +
                             " es.uf as estado, c.nome as cidade, e.escolaridade " +
                             " FROM pessoas p, cidades c, bairros b, escolaridades e, estados es " +
                             " WHERE p.id_bairro = b.id AND b.id_cidade = c.id " +
@@ -131,7 +134,7 @@ public class RelPessoas extends javax.swing.JFrame {
                             " AND data_nascimento >= '" + data_amd + "' " +
                             " AND es.uf = '" + c + "' " +
                             " AND p.data_exclusao IS NULL " +
-                            " ORDER BY p.nome ";
+                            " ORDER BY p.nome, idade ";
 
             
             ResultSet resultSet = objController.buscarRelatorio(wSQL);//Buscar os dados do relatório

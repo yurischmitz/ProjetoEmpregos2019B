@@ -34,7 +34,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setExtendedState(TelaPrincipal.MAXIMIZED_BOTH);
 
         try{
-            lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos " + usuarioLogado.getNome());
+            if(!usuarioLogado.getNivel().equals("A")){
+                lblBemVindo.setText("Bem-Vindo sistema de cadastro de empregos " + usuarioLogado.getNome());
+            }else{
+                lblBemVindo.setText(usuarioLogado.getNome());
+            }
+            
+            System.out.println(usuarioLogado.getNivel());
             menuBairros.setVisible(verificaPermissao("M"));
             menuCidade.setVisible(verificaPermissao("M"));
             menuEmpresas.setVisible(verificaPermissao("M"));
