@@ -99,7 +99,7 @@ public class Pessoa_VagaControle {
             SQL = " SELECT pv.id as codigo, p.nome as pessoa, e.nome as empresa, c.nome as cargo ";
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
-            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null ";
+            SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND pv.data_exclusao is null AND p.data_exclusao IS NULL ";
             SQL += " ORDER BY p.nome, e.nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
@@ -196,7 +196,7 @@ public class Pessoa_VagaControle {
             SQL += " FROM pessoas p,  cargos c, empresas e, pessoas_vagas pv, cargo_empresa ce ";
             SQL += " WHERE p.id = pv.id_pessoa AND ce.id = pv.id_cargo_empresa AND ";
             SQL += " ce.id_cargo = c.id AND ce.id_empresa = e.id AND p.id = '" + idmostrarpessoa + "'";
-            SQL += " AND pv.data_exclusao is null ";
+            SQL += " AND pv.data_exclusao is null AND p.data_exclusao IS NULL";
             SQL += " ORDER BY e.nome ";
             
             result = Conexao.stmt.executeQuery(SQL);
